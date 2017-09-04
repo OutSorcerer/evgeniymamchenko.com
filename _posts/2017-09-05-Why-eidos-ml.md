@@ -16,7 +16,7 @@ It is inspired by [scikit-learn](https://github.com/scikit-learn/scikit-learn) b
 
 ### Status
 
-Currently library is an early development stage and suggested use-cases are participation in competitions like [Kaggle](https://www.kaggle.com/) and learning and experimenting with ML algorithms.
+Currently the library is in the early development stage and the suggested use-cases are participation in competitions like [Kaggle](https://www.kaggle.com/) or learning and experimenting with ML algorithms.
 
 There **will** be breaking changes. But after the release of 1.0 it will be stable and suitable for production for small-scale problems (that fit to a single machine's memory).
 
