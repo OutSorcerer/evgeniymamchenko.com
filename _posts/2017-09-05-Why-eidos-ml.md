@@ -3,7 +3,7 @@ layout: post
 title: Why eidos.ml?
 ---
 
-# About eidos.ml
+## About eidos.ml
 
 *This post tells what is eidos.ml and why it was created.*
 
@@ -11,19 +11,19 @@ title: Why eidos.ml?
 
 It is inspired by [scikit-learn](https://github.com/scikit-learn/scikit-learn) but uses advantages of C# syntax and .NET runtime.
 
-## Status
+### Status
 
 Currently library is an early development stage and suggested use-cases are participation in competitions like [Kaggle](https://www.kaggle.com/) and learning and experimenting with ML algorithms.
 
 There **will** be breaking changes. But after the release of 1.0 it will be stable and suitable for production for small-scale problems (that fit to a single machine's memory).
 
-# Why invent the wheel?
+## Why invent the wheel?
 
 There are other great ML libraries for other languages and for C# too. Why create yet another?
 
 Not only for fun.
 
-## Why C#?
+### Why C#?
 
 - C# today is one of the most [popular](https://www.tiobe.com/tiobe-index/), [loved and wanted](https://insights.stackoverflow.com/survey/2017#most-loved-dreaded-and-wanted) general-purpose programming languages, it has strong backing by Microsoft, enterprises and the community.
 
@@ -41,7 +41,7 @@ Not only for fun.
 
 - With the release of .NET Core 1.0 in 2016 Microsoft finally made C# / .NET truly cross-platform and open source with free developments tools like VS Code or VS Community Edition available. That encourages its use for scientific computing.
 
-## Why not C#?
+### Why not C#?
 
 You might ask if C# language is so good why it is not so popular for ML? I believe the main reason for that is not technical issues but the inertia of public opinion, for example a tendency to associate C# with "evil" and proprietary Microsoft (which is, in a degree, true, but it is by the same degree true for Oracle, Apple, Google or any other corporation that is *surprisingly* trying to earn money).
 
@@ -60,7 +60,7 @@ In the end it is the amount of GitHub forks and MRs/ NuGet downloads that shows 
 
 In any case the code is open source so someone else could use it for their purposes. And I will, at the very least, have fun.
 
-## Why eidos.ml?
+### Why eidos.ml?
 
 - The name *eidos* comes from the Plato's [theory of Forms](https://en.wikipedia.org/wiki/Theory_of_forms), where it means non-physical (but substantial) forms (or ideas) representing the most accurate reality. Since machine learning models should simulate the reality as accurately as possible an *eidos* would be an ideal model. 
 
