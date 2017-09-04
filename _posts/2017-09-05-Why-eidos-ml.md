@@ -3,9 +3,12 @@ layout: post
 title: Why eidos.ml?
 ---
 
-## About eidos.ml
-
 *This post tells what is eidos.ml and why it was created.*
+
+<!-- TODO: learn how to property insert images. -->
+<image src='https://raw.githubusercontent.com/OutSorcerer/class-struggle/master/images/plato.jpg' />
+
+## About eidos.ml
 
 [eidos.ml](https://github.com/OutSorcerer/eidos.ml) is a C# / .NET Standard library for productive development of machine learning pipelines that is based on [MathNet.Numerics](https://github.com/mathnet/mathnet-numerics).
 
