@@ -10,7 +10,7 @@ title: Why eidos.ml?
 
 ## About eidos.ml
 
-[eidos.ml](https://github.com/OutSorcerer/eidos.ml) is a C# / .NET Standard library for productive development of machine learning pipelines that is based on [MathNet.Numerics](https://github.com/mathnet/mathnet-numerics).
+[eidos.ml](https://github.com/OutSorcerer/eidos) is a C# / .NET Standard library for productive development of machine learning pipelines that is based on [MathNet.Numerics](https://github.com/mathnet/mathnet-numerics).
 
 It is inspired by [scikit-learn](https://github.com/scikit-learn/scikit-learn) but uses advantages of C# syntax and .NET runtime.
 
@@ -77,7 +77,7 @@ In any case the code is open source so someone else could use it for their purpo
 
   There will be reproducible benchmarks with other popular libraries. There will be also performance tests.
 
-- Eidos is free / open source (MIT license).
+- eidos.ml is free / open source (MIT license).
 
   By the way, there is another C#-based ML solution called Azure ML that may be great for enterprise use but it is not free / open source that is not good for studying ML and competing on Kaggle.
 
@@ -85,7 +85,7 @@ In any case the code is open source so someone else could use it for their purpo
 
   Good objects should have some properties like [SOLID principles](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) or [immutability](http://www.yegor256.com/2014/11/20/seven-virtues-of-good-object.html). But the library should stay pragmatic and do not make user jump through the hoops when it is not necessary (so I do not share [Yegor Bugayenko's opinion](http://www.yegor256.com/2014/11/20/seven-virtues-of-good-object.html]) that static utility classes are evil).
 
-- Scientific code tends to be the opposite to the definition of clean code. The code of Eidos should be clean, and that will be enforced both automatically and by code review. The code must be also covered by automated tests that are launched for every commit on CI server.
+- Scientific code tends to be the opposite to the definition of clean code. The code of eidos.ml should be clean, and that will be enforced both automatically and by code review. The code must be also covered by automated tests that are launched for every commit on CI server.
 
 - eidos.ml is cross-platform since it is implemented as .NET Standard 2.0 library. In case of addition of native binaries they will be supplied for Windows, Linux and Mac and it will always remain cross-platform. Continuos integration and automated tests will enforce portability.
 
