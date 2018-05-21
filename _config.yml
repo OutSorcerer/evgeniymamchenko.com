@@ -18,14 +18,14 @@ avatar: /images/evgeniymamchenko.png
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:
-  email:
+  email: evgeniy.mamchenko@yandex.ru
   facebook:
   flickr:
   github: OutSorcerer/evgeniymamchenko.com
   instagram:
   linkedin: evgeniymamchenko
   pinterest:
-  rss: # just type anything here for a working RSS icon
+  rss: true # just type anything here for a working RSS icon
   twitter:
   stackoverflow: users/5655977/sourcerer
   youtube: # channel/<your_long_string> or user/<user-name>
