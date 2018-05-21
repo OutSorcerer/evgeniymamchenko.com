@@ -5,7 +5,7 @@ title: Data transformation pipeline in Kaggle competitions with doit build-tool
 
 *How to automate downloading, extracting, transforming a dataset and training a model on it in a Kaggle competition.*
 
-<image src='https://raw.githubusercontent.com/OutSorcerer/class-struggle/master/images/kaggle-pipeline.png' />
+<image src='/images/kaggle-pipeline.png' />
 
 *The picture above is (almost) unrelated and belongs to [comSysto’s Labs](https://comsysto.wordpress.com/2013/12/20/taking-part-in-a-kaggle-competition-our-experience/).*
 

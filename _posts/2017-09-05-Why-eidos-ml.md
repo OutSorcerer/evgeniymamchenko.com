@@ -6,7 +6,7 @@ title: Why eidos.ml?
 *This post tells what is eidos.ml and why it was created.*
 
 <!-- TODO: learn how to property insert images. -->
-<image src='https://raw.githubusercontent.com/OutSorcerer/class-struggle/master/images/plato.jpg' />
+<image src='/images/plato.jpg' />
 
 ## About eidos.ml
 
