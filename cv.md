@@ -1,8 +1,10 @@
 ---
 layout: page
-title: About
-permalink: /about/
+title: Curriculum Vitae
+permalink: /cv/
 ---
+
+Under construction.
 
 ### Contact me
 
