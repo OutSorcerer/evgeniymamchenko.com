@@ -5,9 +5,9 @@ title: Dual Neural Style Transfer with Docker Compose
 
 *How to extend NST with a second style and what are the challenges of deploying it as a single unit using TensorFlow, Flask, ASP.NET Core, Angular and Docker Compose.*
 
->A live demo is available at http://nst-online.evgeniymamchenko.com.
+>A live demo is available at <http://nst-online.evgeniymamchenko.com>.
 
->Sources are available at https://gitlab.com/OutSorcerer/NeuralStyleTransferWeb. You will also find the instructions how to launch it locally with Docker Compose. 
+>Sources are available at <https://gitlab.com/OutSorcerer/NeuralStyleTransferWeb>. You will also find the instructions how to launch it locally with Docker Compose. 
 
 <image id="coding-horror-on-fire" src="../images/coding-horror-on-fire.png" />
 
