@@ -78,7 +78,9 @@ Feel free to play with it yourself, I would appreciate if you would share you re
 
 ## Architecture
 
-Let's talk about the building blocks of the application.
+<image src="../images/nst_architecture.png">
+
+Let us talk in more detail about the building blocks of the application.
 
 ### Angular 5
 
