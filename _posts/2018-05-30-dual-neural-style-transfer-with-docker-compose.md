@@ -388,6 +388,6 @@ In a [recent post on fast.ai](http://www.fast.ai/2018/04/30/dawnbench-fastai/) t
 
 Thanks to Andrew Ng and the whole [deeplearning.ai](https://www.deeplearning.ai/) and Coursera teams for their great work on the [Deep Learning specialization](https://www.coursera.org/specializations/deep-learning).
 
-Thanks to GitLab.com for generously providing 10Gb repositories for free without limits on individual files sizes (unlike 100Mb limit for a single file size on GitHub).
+Thanks to [GitLab.com](https://gitlab.com/) for generously providing 10Gb repositories for free without limits on individual files sizes (unlike 100Mb limit for a single file size on GitHub).
 
 Thanks to Google Cloud for their $300 / 12-month [Free Tier](https://cloud.google.com/free/) where the application is running now.
