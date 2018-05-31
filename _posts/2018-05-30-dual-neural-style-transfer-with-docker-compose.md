@@ -88,7 +88,7 @@ That is the face of the application. It is responsible for validating a user inp
 
 When the job is in progress it does polling with a one-second interval to show the results in real time. [rxjs](https://angular.io/guide/rx-library) is a nice tool for filtering, mapping and combining streams of asyncrosous events where tasks like HTTP polling are solved in a powerful and concise way. For example, if some request was not able to complete in one second and the next request already started it makes no sense to wait for both of them and waste connections as the data from the previous request are already obsolete. [switchMap](https://www.learnrxjs.io/operators/transformation/switchmap.html) operator nicely solves this problem:
 
-```TypeScript
+```typescript
 const polling = Observable.timer(0, 1000)
     .switchMap(() => this.http.get<any>(this.baseUrl + `api/neural-style-transfer/jobs/${jobId}`));
 ```
@@ -117,7 +117,7 @@ Even though there are special `flask_restful` and `flask_jsonpify` packages crea
 
 To be more clear here is an example of parsing of HTTP request body in JSON format.
 
-```Python
+```python
 # This decorator takes the class/named tuple to convert any JSON  data in incoming request to. 
 def convert_input_to(class_):
     def wrap(f):
@@ -205,13 +205,13 @@ I foolishly tried to manually update it to Angular 5 that initially worked fine.
 
 I was already choosing between giving up SSR or giving up Angular 5 when I luckily found that [Microsoft create a new SPA templates](https://github.com/aspnet/JavaScriptServices/issues/1288#issuecomment-346003334) with support of both Angular 5 and [SSR](https://docs.microsoft.com/en-us/aspnet/core/spa/angular?view=aspnetcore-2.1&tabs=visual-studio#server-side-rendering) (although SSR is *not* turned on by default). The point was that template was still in beta and it had to be installed manually with
 
-```sh
+```shell
 dotnet new --install Microsoft.DotNet.Web.Spa.ProjectTemplates::2.0.0
 ```
 
 and used by 
 
-```sh
+```shell
 dotnet new angular
 ```
 
@@ -223,7 +223,7 @@ The original implementation of NST from Deep Learning specialization course work
 
 The first thing that caught my eye was content cost and style cost nodes of the computation graph in TensorFlow were not reused but created for each input image:
 
-```Python
+```python
 # a_C is an activation of a hidden layer when a network input is set to a content image
 # a_G is the same activation when result image is set as a network input
 # J_content is content cost graph node
@@ -232,7 +232,7 @@ J_content = compute_content_cost(a_C, a_G)
 
 It was rewritten as:
 
-```Python
+```python
 a_C_var = tf.Variable(np.zeros(out.shape), trainable = False, dtype = 'float32')
 J_content = compute_content_cost(a_C_var, a_G)
 ```
@@ -255,26 +255,26 @@ By the way, there is a nice way to validate if you program is free of such kind 
 
 So, instead of:
 
-```Python
+```python
 session.run(input_variable.assign(content_image))
 ```
 
 there must be:
 
-```Python
+```python
 input_placeholder = tf.placeholder(dtype='float32', shape=(1, CONFIG.IMAGE_HEIGHT, CONFIG.IMAGE_WIDTH, CONFIG.COLOR_CHANNELS)) 
     graph['input']   = tf.Variable(input_placeholder, dtype = 'float32')
 ```
 
 during initialization, and then for each request:
 
-```Python
+```python
 session.run(input_variable.initializer, feed_dict = {input_placeholder: content_image})
 ```
 
 You must also remove:
 
-```Python
+```python
 session.run(tf.global_variables_initializer())
 ```
 
@@ -282,7 +282,7 @@ Because that would also try to initialize variables like `input_variable` withou
 
 You will most likely also have to initialize the variables implicitly created by the optimizer. It can be done like:
 
-```Python
+```python
 session.run(tf.variables_initializer(optimizer.variables()))
 ```
 
@@ -296,19 +296,19 @@ That fix also sped up the application significantly. A second run with a GPU sta
 
 So why `switchMap` may not work? It is obvious, you just need to replace
 
-```TypeScript
+```typescript
 import { Observable } from "rxjs";
 ```
 
 with
 
-```TypeScript
+```typescript
 import { Observable } from "rxjs/Observable";
 ```
 
 and it starts to work. In exchange for that you now have to explicitly import every rxjs operator that was previously imported automatically like
 
-```TypeScript
+```typescript
 import 'rxjs/add/operator/switchMap';
 ```
 
@@ -335,7 +335,7 @@ you may wish to switch to the Development environment.
 
 Luckily Docker Compose file format has a solution for that:
 
-```YAML
+```yaml
 version: '2.3'
 
 services:
