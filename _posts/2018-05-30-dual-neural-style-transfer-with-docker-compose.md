@@ -52,7 +52,7 @@ Intuitively it can be defined as generating a picture which content is similar t
 
 In a more detailed way it is a result of iterative optimization of a specific cost function defined on a result image. On each step of the optimization we compute the gradient of that cost function with respect to each pixel of result image and slightly change the result image in the direction opposite to the gradient as we always do in the [Gradient descent algorithm](https://en.wikipedia.org/wiki/Gradient_descent).
 
-The interesting fact here is that typically with convolution neural networks images are fixed and weights of the network are the subject of optimization. On the contrary, in NST algorithm the weights of CNN are fixed while the input image is optimized. In [the original paper](https://arxiv.org/pdf/1508.06576.pdf) the CNN with [VGG architecture](https://www.quora.com/What-is-the-VGG-neural-network) pre-trained on [ImageNet dataset](https://en.wikipedia.org/wiki/ImageNet). This application also load weights of pre-trained VGG model. What is interesting is [there could something special in VGG architecture that makes it especially good for Neural Style Transfer](https://www.reddit.com/r/MachineLearning/comments/7rrrk3/d_eat_your_vggtables_or_why_does_neural_style/) although some people achived good results with other architectures too.
+The interesting fact here is that typically with convolution neural networks images are fixed and weights of the network are the subject of optimization. On the contrary, in NST algorithm the weights of CNN are fixed while the input image is optimized. In [the original paper](https://arxiv.org/pdf/1508.06576.pdf) the CNN with [VGG architecture](https://www.quora.com/What-is-the-VGG-neural-network) pre-trained on [ImageNet dataset](https://en.wikipedia.org/wiki/ImageNet). This application also load weights of pre-trained VGG model. What is interesting is [there could something special in VGG architecture that makes it especially good for Neural Style Transfer](https://www.reddit.com/r/MachineLearning/comments/7rrrk3/d_eat_your_vggtables_or_why_does_neural_style/) although some people achieved good results with other architectures too.
 
 The mentioned const function is a sum of two terms.
 
@@ -86,7 +86,7 @@ Let us talk in more detail about the building blocks of the application.
 
 That is the face of the application. It is responsible for validating a user input and sending it to the server.
 
-When the job is in progress it does polling with a one-second interval to show the results in real time. [rxjs](https://angular.io/guide/rx-library) is a nice tool for filtering, mapping and combining streams of asyncrosous events where tasks like HTTP polling are solved in a powerful and concise way. For example, if some request was not able to complete in one second and the next request already started it makes no sense to wait for both of them and waste connections as the data from the previous request are already obsolete. [switchMap](https://www.learnrxjs.io/operators/transformation/switchmap.html) operator nicely solves this problem:
+When the job is in progress it does polling with a one-second interval to show the results in real time. [rxjs](https://angular.io/guide/rx-library) is a nice tool for filtering, mapping and combining streams of asynchronous events where tasks like HTTP polling are solved in a powerful and concise way. For example, if some request was not able to complete in one second and the next request already started it makes no sense to wait for both of them and waste connections as the data from the previous request are already obsolete. [switchMap](https://www.learnrxjs.io/operators/transformation/switchmap.html) operator nicely solves this problem:
 
 ```typescript
 const polling = Observable.timer(0, 1000)
@@ -95,7 +95,7 @@ const polling = Observable.timer(0, 1000)
 
 Angular 5 is my framework of choice because of my love to statically typed languages like C# or TypeScript and also because of the nice SPA template included with .NET Core CLI. That template is even capable of [server-side rendering](https://angular.io/guide/universal) which is nice for SEO and the user experience tool as if significantly decreases the initial page load time.
 
-The template (and this application) uses [Bootstrap](https://getbootstrap.com/) library which looks a bit old-fasioned in 2018, I hope the next template from Microsoft will use [Angular Material](https://material.angular.io/) which is more modern-looking.
+The template (and this application) uses [Bootstrap](https://getbootstrap.com/) library which looks a bit old-fashioned in 2018, I hope the next template from Microsoft will use [Angular Material](https://material.angular.io/) which is more modern-looking.
 
 Considering React vs. Angular I also prefer Angular because it is a whole framework with "batteries included" experience so you have less decisions to make in the begging while it is still highly extendable (for example, if you want you can use Redux-like [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md)) with things like built-in Dependency Injection that could be very useful for tests.
 
@@ -165,7 +165,7 @@ Docker as a containerization software provides an *immutable environment* which 
 
 Docker Compose is in turn a tool to run multi-container applications. One of its abilities is virtual networks that where we can put our services are visible to each other, but not to outside world. In this example Python service should not communicate with user directly so it does not publish any ports to outside and it can only receive requests from .NET Core service which on the contrary publishes port 80 to receive user's requests.
 
-With Docker and Docker Compose you can launch this application just in minutes without spending much time on environment preparation (which as with CUDA on Windows might be challanging). You will find the detailed instructions in the Readme file of the corresponding GitLab repository.
+With Docker and Docker Compose you can launch this application just in minutes without spending much time on environment preparation (which as with CUDA on Windows might be challenging). You will find the detailed instructions in the Readme file of the corresponding GitLab repository.
 
 ## Challenges
 
@@ -173,7 +173,7 @@ It was fun to work on this project. But, unfortunately sometimes your code fails
 
 ### Installing TensorFlow with GPU support on Windows
 
-TensorFlow itself installs easily [following their instructions](https://www.tensorflow.org/install/install_windows#requirements_to_run_tensorflow_with_gpu_support) with just `pip install`, but Nvidia could defenitely try better with deploying their seriously great softwate to end user. 
+TensorFlow itself installs easily [following their instructions](https://www.tensorflow.org/install/install_windows#requirements_to_run_tensorflow_with_gpu_support) with just `pip install`, but Nvidia could definitely try better with deploying their seriously great software to end user. 
 
 [CUDA 9.0](https://developer.nvidia.com/cuda-90-download-archive) (with `tensorflow-gpu` 1.8.0 package you need exactly CUDA 9.0 version, not the most recent one) itself is wrapped in a nice installer except it fails to install Visual Studio integration module and does not even try to install other modules afterwards even though they do not depend on VS integration.
 
