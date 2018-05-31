@@ -20,7 +20,7 @@ title: Dual Neural Style Transfer with Docker Compose
 
 ## How to use the application
 
-* Click on "Content Image" button or a placeholder below and upload a content image.
+* Click on the "Content Image" button or the placeholder below and upload a content image.
 
 * Pick a style image.
 
