@@ -382,7 +382,7 @@ In a [recent post on fast.ai](http://www.fast.ai/2018/04/30/dawnbench-fastai/) t
 
 ### TensorFlow Serving
 
-[TensorFlow Serving](https://www.tensorflow.org/serving/serving_basic) seems to be not applicable currently as it serves a trained model, but here is a training process. However, with a feed-forward approach it could replace the Flask part.
+[TensorFlow Serving](https://www.tensorflow.org/serving/serving_basic) does not seem to be applicable currently as it serves a trained model, but here is a training process. However, with a feed-forward approach it could replace the Flask part.
 
 ## Credits
 
