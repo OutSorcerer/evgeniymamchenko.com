@@ -13,12 +13,12 @@ title: Dual Neural Style Transfer with Docker Compose
 
 >A live demo is available at <http://nst-online.evgeniymamchenko.com>.
 
->The sources are available at <https://gitlab.com/OutSorcerer/NeuralStyleTransferWeb>. You will also find the instructions how to launch the app locally with Docker Compose. 
+>The sources are available at <https://gitlab.com/OutSorcerer/NeuralStyleTransferWeb>. You will also find the instructions how to launch the application locally with Docker Compose. 
 
 * TOC
 {:toc}
 
-## How to use the app
+## How to use the application
 
 * Click on "Content Image" button or a placeholder below and upload a content image.
 
@@ -101,7 +101,7 @@ Considering React vs. Angular I also prefer Angular because it is a whole framew
 
 ### ASP.NET Core
 
-ASP.NET Core app receives REST requests from the Angular SPA, resizes images to 400x300 and puts NST jobs in queue. Since TensorFlow uses 100% of CPU power it is not practical to perform two transfers simultaneously, that is why that queue comes in handy. ASP.NET Core app is also responsible for responding to polling from Angular SPA and doing polling of Python back-end itself.
+ASP.NET Core application receives REST requests from the Angular SPA, resizes images to 400x300 and puts NST jobs in queue. Since TensorFlow uses 100% of CPU power it is not practical to perform two transfers simultaneously, that is why that queue comes in handy. ASP.NET Core application is also responsible for responding to polling from Angular SPA and doing polling of Python back-end itself.
 
 C# is my favorite language so the choice of ASP.NET Core is natural for me. But, considering Microsoft's efforts to improve the C# language (comparing with Java, C# syntax recently was and still is years ahead) and their efforts to move .NET Framework towards open-source and cross-platform development and deployment everyone should take a closer look at .NET Core.
 
