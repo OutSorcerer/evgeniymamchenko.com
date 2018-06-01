@@ -97,7 +97,7 @@ Angular 5 is my framework of choice because of my love to statically typed langu
 
 The template (and this application) uses [Bootstrap](https://getbootstrap.com/) library which looks a bit old-fashioned in 2018, I hope the next template from Microsoft will use [Angular Material](https://material.angular.io/) which is more modern-looking.
 
-Considering React vs. Angular I also prefer Angular because it is a whole framework with "batteries included" experience so you have less decisions to make in the begging while it is still highly extendable (for example, if you want you can use Redux-like [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md)) with things like built-in Dependency Injection that could be very useful for tests.
+Considering React vs. Angular I also prefer Angular because it is a whole framework with "batteries included" experience so you have less decisions to make in the beginning while it is still highly extendable (for example, if you want you can use Redux-like [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md)) with things like built-in Dependency Injection that could be very useful for tests.
 
 ### ASP.NET Core
 
