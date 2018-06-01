@@ -52,9 +52,9 @@ Intuitively it can be defined as generating a picture which content is similar t
 
 In a more detailed way it is a result of iterative optimization of a specific cost function defined on a result image. On each step of the optimization we compute the gradient of that cost function with respect to each pixel of result image and slightly change the result image in the direction opposite to the gradient as we always do in the [Gradient descent algorithm](https://en.wikipedia.org/wiki/Gradient_descent).
 
-The interesting fact here is that typically with convolution neural networks images are fixed and weights of the network are the subject of optimization. On the contrary, in NST algorithm the weights of CNN are fixed while the input image is optimized. In [the original paper](https://arxiv.org/pdf/1508.06576.pdf) the CNN with [VGG architecture](https://www.quora.com/What-is-the-VGG-neural-network) pre-trained on [ImageNet dataset](https://en.wikipedia.org/wiki/ImageNet). This application also load weights of pre-trained VGG model. What is interesting is [there could something special in VGG architecture that makes it especially good for Neural Style Transfer](https://www.reddit.com/r/MachineLearning/comments/7rrrk3/d_eat_your_vggtables_or_why_does_neural_style/) although some people achieved good results with other architectures too.
+The interesting fact here is that typically with convolution neural networks images are fixed and weights of the network are the subject of optimization. On the contrary, in NST algorithm the weights of CNN are fixed while the input image is optimized. In [the original paper](https://arxiv.org/pdf/1508.06576.pdf) the CNN with [VGG architecture](https://www.quora.com/What-is-the-VGG-neural-network) pre-trained on [ImageNet dataset](https://en.wikipedia.org/wiki/ImageNet). This application also loads weights of pre-trained VGG model. What is interesting is [there could something special in VGG architecture that makes it especially good for Neural Style Transfer](https://www.reddit.com/r/MachineLearning/comments/7rrrk3/d_eat_your_vggtables_or_why_does_neural_style/) although some people achieved good results with other architectures too.
 
-The mentioned const function is a sum of two terms.
+The mentioned cost function is a sum of two terms.
 
 The first one is the content cost multiplied by its weight (a parameter that can be configured in UI as mentioned above). The content cost is the squared Euclidean  distance between (an L2-norm of the difference of) the values of an intermediate convolution layer on the content image and the result image normalized by the input size. 
 
@@ -203,7 +203,7 @@ I [mentioned above](#angular-5) that I used a nice Angular 5 template for .NET C
 
 I foolishly tried to manually update it to Angular 5 that initially worked fine. But as soon as I started to build Docker images that included building Angular 5 application in production mode with SSR it broke. It turned out that there were breaking changes in SSR from Angular 4 to Angular 5.
 
-I was already choosing between giving up SSR or giving up Angular 5 when I luckily found that [Microsoft create a new SPA templates](https://github.com/aspnet/JavaScriptServices/issues/1288#issuecomment-346003334) with support of both Angular 5 and [SSR](https://docs.microsoft.com/en-us/aspnet/core/spa/angular?view=aspnetcore-2.1&tabs=visual-studio#server-side-rendering) (although SSR is *not* turned on by default). The point was that template was still in beta and it had to be installed manually with
+I was already choosing between giving up SSR or giving up Angular 5 when I luckily found that [Microsoft created a new SPA template](https://github.com/aspnet/JavaScriptServices/issues/1288#issuecomment-346003334) with support of both Angular 5 and [SSR](https://docs.microsoft.com/en-us/aspnet/core/spa/angular?view=aspnetcore-2.1&tabs=visual-studio#server-side-rendering) (although SSR is *not* turned on by default). The point was that template was still in beta and it had to be installed manually with
 
 ```shell
 dotnet new --install Microsoft.DotNet.Web.Spa.ProjectTemplates::2.0.0
@@ -243,7 +243,7 @@ That allowed to reuse their graph nodes just by assigning new values to the corr
 
 I also realized that a current session must not be created from scratch for each transfer but a single session can be reused.
 
-Everything seemed to be perfect, I deployed the application to a Google Cloud instance and started to test it more intensively. And then I faced out of memory errors. At first I though that it is just a peculiarity of Python/TensorFlow memory management and it can be solved just by increasing instance memory but that just postponed the error, not fixed it entirely. I looked at the TensorFlow process memory consumption and saw that it was steadily growing.
+Everything seemed to be perfect, I deployed the application to a Google Cloud instance and started to test it more intensively. And then I faced out of memory errors. At first I thought that it is just a peculiarity of Python/TensorFlow memory management and it can be solved just by increasing instance memory but that just postponed the error, not fixed it entirely. I looked at the TensorFlow process memory consumption and saw that it was steadily growing.
 
 Long story short, the reason was [leaking TensorFlow computation graph nodes, specifically assign nodes](https://github.com/tensorflow/tensorflow/issues/4151). 
 
@@ -353,7 +353,7 @@ services:
 
 I was confused at first by a fact that [those settings were removed in the version 3 of Compose file](https://docs.docker.com/compose/compose-file/compose-versioning/#version-3). The reason is that version 3 is mainly for running stacks of containers in Docker Swarm that has its own way of limiting CPU usage while the version 2 is for good old docker-compose. And [version 2.3 is not so old as it was introduced almost at the same time as 3.4](https://github.com/docker/compose/issues/4513#issuecomment-377311337). 
 
-To make it even easier for a server I started to send the result image only when it is changes. On 2-cores instance it happens once in about 15 seconds and the image size is about 300 kB while for the rest of polling responses that are performed each seconds payload size is just few hundred of bytes.
+To make it even easier for a server I started to send the result image only when it is changes. On 2-cores instance it happens once in about 15 seconds and the image size is about 300 kB while for the rest of polling responses that are performed each seconds payload size is just few hundreds of bytes.
 
 ## Possible improvements and further reading
 
