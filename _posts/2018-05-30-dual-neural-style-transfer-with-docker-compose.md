@@ -28,39 +28,39 @@ title: Dual Neural Style Transfer with Docker Compose
 
 * Optionally change the parameters.
 
-    * Iterations. The number of optimization steps taken. Higher the number lower the cost that generally leads to better-looking result.
+    * Iterations. The number of optimization steps taken. Higher the number lower the cost that generally leads to a better-looking result.
 
     * Content cost weight. A multiplier of the content cost term in the total cost. Higher the number more similar to the content image result is. 
 
     * Style cost weight. A multiplier of the style cost term in the total cost. Higher the number more similar to the style image result is. 
 
-* Click "Launch" button. Transfer is starting, the result image and other transfer details are shown on the screen.
+* Click "Launch" button. The transfer is starting, the resulting image and other transfer details are shown on the screen.
 
     <a href="../images/nst-ui.png" style="height: 50%; width: 50%"><img id="dual-nst-image" src="../images/nst-ui.png"></a>
 
     *This is how the UI looks in the middle of a style transfer when **two** styles (a starry sky and neon lights) are simultaneously applied to a single content image.*
 
-    >Please note that <http://nst-online.evgeniymamchenko.com> works just on 2-cores machine, where 100 iterations of transfer take about 30 minutes. My mobile GPU Nvidia GeForce GTX 1050 works about *100 times* faster. Unfortunately, a GPU in the cloud is too expensive right now (one of the cheapest GPU instances with Nvidia TESLA K80 Module costs about $700 per month, which in just half a year gives the total price of the module, I guess we should thank the Blockchain Bubble for that and for the wasted non-renewable energy resources, but let's hope it will be a benefit for development of GPU hardware in the long term).
+    >Please note that <http://nst-online.evgeniymamchenko.com> works just on 2-cores machine, where 100 iterations of transfer take about 30 minutes. My mobile GPU Nvidia GeForce GTX 1050 works about *100 times* faster. Unfortunately, a GPU in the cloud is too expensive right now (one of the cheapest GPU instances with Nvidia TESLA K80 Module costs about $700 per month, which gives the total price of the module in just half a year, I guess we should thank the Blockchain Bubble for that and for the wasted non-renewable energy resources, but let's hope it will be a benefit for development of GPU hardware in the long term).
 
-    If you job status is "queued" that means that the back-end is busy at the moment but it will start processing your input as soon as all previous jobs are done.
+    If your job status is "queued" that means that the back-end is busy at the moment but it will start processing your input as soon as all previous jobs are done.
 
 * Click "Stop" button to abort the transfer.
 
-## What is Neural Style Transfer
+## What is Neural Style Transfer?
 
 Intuitively it can be defined as generating a picture which content is similar to one input image and which style is similar to another input image.
 
-In a more detailed way it is a result of iterative optimization of a specific cost function defined on a result image. On each step of the optimization we compute the gradient of that cost function with respect to each pixel of result image and slightly change the result image in the direction opposite to the gradient as we always do in the [Gradient descent algorithm](https://en.wikipedia.org/wiki/Gradient_descent).
+In a more detailed way, it is a result of iterative optimization of a specific cost function defined on a resulting image. On each step of the optimization, we compute the gradient of that cost function with respect to each pixel of resulting image and slightly change the resulting image in the direction opposite to the gradient as we always do in the [Gradient descent algorithm](https://en.wikipedia.org/wiki/Gradient_descent).
 
 The interesting fact here is that typically with convolution neural networks images are fixed and weights of the network are the subject of optimization. On the contrary, in NST algorithm the weights of CNN are fixed while the input image is optimized. In [the original paper](https://arxiv.org/pdf/1508.06576.pdf) the CNN with [VGG architecture](https://www.quora.com/What-is-the-VGG-neural-network) pre-trained on [ImageNet dataset](https://en.wikipedia.org/wiki/ImageNet). This application also loads weights of pre-trained VGG model. What is interesting is [there could something special in VGG architecture that makes it especially good for Neural Style Transfer](https://www.reddit.com/r/MachineLearning/comments/7rrrk3/d_eat_your_vggtables_or_why_does_neural_style/) although some people achieved good results with other architectures too.
 
 The mentioned cost function is a sum of two terms.
 
-The first one is the content cost multiplied by its weight (a parameter that can be configured in UI as mentioned above). The content cost is the squared Euclidean  distance between (an L2-norm of the difference of) the values of an intermediate convolution layer on the content image and the result image normalized by the input size. 
+The first one is the content cost multiplied by its weight (a parameter that can be configured in UI as mentioned above). The content cost is the squared Euclidean distance between (an L2-norm of the difference of) the values of an intermediate convolution layer on the content image and the resulting image normalized by the input size. 
 
 The second one is thereafter the style cost multiplied by the style cost weight parameter. 
 
-Unlike the content cost the style cost is computed on multiple layers which are summed up with their weights which are also model parameters. For a single layer the style cost is the squared Euclidean distance between [Gram matrices](https://en.wikipedia.org/wiki/Gramian_matrix) of that layer activations (with `(number_of_channels, height*width)` shape) for the result image and the style image.
+Unlike the content cost, the style cost is computed on multiple layers which are summed up with their weights which are also model parameters. For a single layer, the style cost is the squared Euclidean distance between [Gram matrices](https://en.wikipedia.org/wiki/Gramian_matrix) of that layer activations (with `(number_of_channels, height*width)` shape) for the resulting image and the style image.
 
 Gram matrix is approximately proportional to the covariance matrix (in case values are centered). Its diagonal elements are just squared L2 norms of the corresponding channel activations reshaped as one-dimensional vectors.
 
@@ -68,13 +68,13 @@ For a detailed explanation of Neural Style transfer you can [see the original pa
 
 ## How the original Neural Style Transfer was extended
 
-To make the application more interesting I decided to somehow extend the original algorithm. What if we try to apply two styles simultaneously? Surprisingly, it worked quite well: styles are not overlapping but rather applied to different parts of the image depending on which part is more suitable for each style. Let us call it "dual NST".
+To make the application more interesting, I decided to extend the original algorithm somehow. What if we try to apply two styles simultaneously? Surprisingly, it worked quite well: styles are not overlapping but rather applied to different parts of the image depending on which part is more suitable for each style. Let us call it "dual NST".
 
 See [the example illustration above](#dual-nst-image).
 
-To implement a second style an extra style term in added to the total cost.
+To implement a second style an extra style term is added to the total cost.
 
-Feel free to play with it yourself, I would appreciate if you would share you results in comments.
+Feel free to play with it yourself, I would appreciate if you would share your results in comments.
 
 ## Architecture
 
@@ -86,7 +86,7 @@ Let us talk in more detail about the building blocks of the application.
 
 That is the face of the application. It is responsible for validating a user input and sending it to the server.
 
-When the job is in progress it does polling with a one-second interval to show the results in real time. [rxjs](https://angular.io/guide/rx-library) is a nice tool for filtering, mapping and combining streams of asynchronous events where tasks like HTTP polling are solved in a powerful and concise way. For example, if some request was not able to complete in one second and the next request already started it makes no sense to wait for both of them and waste connections as the data from the previous request are already obsolete. [switchMap](https://www.learnrxjs.io/operators/transformation/switchmap.html) operator nicely solves this problem:
+When the job is in progress, it does polling with a one-second interval to show the results in real time. [rxjs](https://angular.io/guide/rx-library) is a nice tool for filtering, mapping and combining streams of asynchronous events where tasks like HTTP polling are solved in a powerful and concise way. For example, if some request was not able to complete in one second and the next request already started it makes no sense to wait for both of them and waste connections as the data from the previous request are already obsolete. [switchMap](https://www.learnrxjs.io/operators/transformation/switchmap.html) operator nicely solves this problem:
 
 ```typescript
 const polling = Observable.timer(0, 1000)
@@ -97,28 +97,28 @@ Angular 5 is my framework of choice because of my love to statically typed langu
 
 The template (and this application) uses [Bootstrap](https://getbootstrap.com/) library which looks a bit old-fashioned in 2018, I hope the next template from Microsoft will use [Angular Material](https://material.angular.io/) which is more modern-looking.
 
-Considering React vs. Angular I also prefer Angular because it is a whole framework with "batteries included" experience so you have less decisions to make in the beginning while it is still highly extendable (for example, if you want you can use Redux-like [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md)) with things like built-in Dependency Injection that could be very useful for tests.
+Considering React vs. Angular, I prefer Angular because, among other things, it is a whole framework with "batteries included" experience so you have fewer decisions to make in the beginning while it is still highly extendable (for example, if you want you can use Redux-like [@ngrx/store](https://github.com/ngrx/platform/blob/master/docs/store/README.md)) with things like built-in Dependency Injection that could be very useful for tests.
 
 ### ASP.NET Core
 
-ASP.NET Core application receives REST requests from the Angular SPA, resizes images to 400x300 and puts NST jobs in queue. Since TensorFlow uses 100% of CPU power it is not practical to perform two transfers simultaneously, that is why that queue comes in handy. ASP.NET Core application is also responsible for responding to polling from Angular SPA and doing polling of Python back-end itself.
+ASP.NET Core application receives REST requests from the Angular SPA, resizes images to 400x300 and puts NST jobs in a queue. Since TensorFlow uses 100% of CPU power, it is not practical to perform two transfers simultaneously, that is why that queue comes in handy. ASP.NET Core application is also responsible for responding to polling from Angular SPA and doing polling of Python back-end itself.
 
 C# is my favorite language so the choice of ASP.NET Core is natural for me. But, considering Microsoft's efforts to improve the C# language (comparing with Java, C# syntax recently was and still is years ahead) and their efforts to move .NET Framework towards open-source and cross-platform development and deployment everyone should take a closer look at .NET Core.
 
-Also, using C# here is a nice example of how two micro-services written in different languages possibly by different teams can easily communicate using REST. Python is very popular for machine learning, but in other spheres people may use Java, .NET, Node.js, etc. so such scenario is what we would often see in a real world.
+Also, using C# here is a nice example of how two micro-services written in different languages possibly by different teams can easily communicate using REST. Python is very popular for machine learning, but in other spheres, people may use Java, .NET, Node.js, etc. so such a scenario is what we would often see in a real world.
 
 ### Flask
 
 Flask is a popular Python framework for building Web APIs including RESTful ones. 
 
-It wraps around the TensorFlow model which is running in a background thread while on another thread it responds to requests to start, stop or query a status of a NST job.
+It wraps around the TensorFlow model which is running in a background thread while on another thread it responds to requests to start, stop or query a status of an NST job.
 
-Even though there are special `flask_restful` and `flask_jsonpify` packages creating REST/JSON services seems to be not so smooth with Flask as it is with ASP.NET Core. I believe it is not only my lack of experience with it, because some prats of my code are based on high-ranked answers on Stack Overflow and instead of using some built-in function they are suggesting to copy-paste their implementations of it.
+Even though there are special `flask_restful` and `flask_jsonpify` packages creating REST/JSON services seems to be not so smooth with Flask as it is with ASP.NET Core. I believe it is not only my lack of experience with it because some parts of my code are based on high-ranked answers on Stack Overflow and instead of using some built-in function they are suggesting to copy-paste their implementations of it.
 
 To be more clear here is an example of parsing of HTTP request body in JSON format.
 
 ```python
-# This decorator takes the class/named tuple to convert any JSON  data in incoming request to. 
+# This decorator takes the class/named tuple to convert any JSON data in incoming request to. 
 def convert_input_to(class_):
     def wrap(f):
         def decorator(self, *args):
@@ -133,7 +133,7 @@ def convert_input_to(class_):
         current_job = job
 ```
 
-Looks nice, but what if decorated function has more arguments? (I can rewrite the code, of course, but the point is there should be a built-in and generic solution out-of-the-box on the contrary to making users copy-paste code that performs very basic tasks). 
+Looks nice, but what if a decorated function has more arguments? (I can rewrite the code, of course, but the point is there should be a built-in and generic solution out-of-the-box on the contrary to making users copy-paste code that performs very basic tasks). 
 
 For comparison the similar place in ASP.NET Core does not use any custom code and looks like this:
 
@@ -149,37 +149,37 @@ I would appreciate if someone would recommend me a nicer replacement of Flask fo
 
 ### TensorFlow
 
-[TensorFlow](https://www.tensorflow.org/) is an open source software library for numerical computation using data flow graphs. It has built-in gradient computation, many supported operations from simple matrix addition or multiplication to pre-implemented convolution or sampling layers, optimizers from  `GradientDescentOptimizer` to `AdamOptimizer`, ability to run on GPUs and TPUs and many more which makes it one of the most popular tools for building neural network models.
+[TensorFlow](https://www.tensorflow.org/) is an open source software library for numerical computation using data flow graphs. It has a built-in gradient computation, many supported operations from simple matrix addition or multiplication to pre-implemented convolution or sampling layers, optimizers from `GradientDescentOptimizer` to `AdamOptimizer`, ability to run on GPUs and TPUs and many more which makes it one of the most popular tools for building neural network models.
 
 The program starts with loading weights of pre-trained VGG network and building a computational graph. A nice thing is that a single graph and a single TensorFlow Session can be used for handling different user inputs which makes initialization time much faster.
 
-Since initialization and training take significant time, but we want to keep user up to date by responding to HTTP requests TensorFlow code works in a separate thread. 
+Since initialization and training take significant time, but we want to keep a user up to date by responding to HTTP requests TensorFlow code works in a separate thread. 
 
 This code is based on an assignment *Art Generation with Neural Style Transfer* from Andrew's Ng [course](https://www.coursera.org/learn/convolutional-neural-networks), which is a part of [Deep Learning specialization](https://www.deeplearning.ai/).
 
-My changes include a support for a second style image, that I described [above](#how-the-original-neural-style-transfer-was-extended) and various performance improvements that I am going to describe [below]().
+My changes include a support for a second style image that I described [above](#how-the-original-neural-style-transfer-was-extended) and various performance improvements that I am going to describe [below](#leaking-tensorflow-graph-nodes-and-therefore-memory).
 
 ### Docker Compose
 
 Docker as a containerization software provides an *immutable environment* which helps a lot with making deployment predictable and reducing time costs for it. That is useful both for Python and .NET Core / Angular parts of the application. They are both wrapped into Docker containers.
 
-Docker Compose is in turn a tool to run multi-container applications. One of its abilities is virtual networks that where we can put our services are visible to each other, but not to outside world. In this example Python service should not communicate with user directly so it does not publish any ports to outside and it can only receive requests from .NET Core service which on the contrary publishes port 80 to receive user's requests.
+Docker Compose is, in turn, a tool to run multi-container applications. One of its abilities is virtual networks that where we can put our services are visible to each other, but not to outside world. In this example, Python service should not communicate with user directly so it does not publish any ports to outside and it can only receive requests from .NET Core service which on the contrary publishes port 80 to receive user requests.
 
 With Docker and Docker Compose you can launch this application just in minutes without spending much time on environment preparation (which as with CUDA on Windows might be challenging). You will find the detailed instructions in the Readme file of the corresponding GitLab repository.
 
 ## Challenges
 
-It was fun to work on this project. But, unfortunately sometimes your code fails, it could be not your guilt but it is your responsibility to make everything work. There was plenty of moment when something was not working and I had no idea why that is why I chose [Coding Horror illustration](#coding-horror-on-fire) for this post. But more satisfying it was to finally figure everything out.
+It was fun to work on this project. But, unfortunately sometimes your code fails, it could be not your guilt, but it is your responsibility to make everything work. There was plenty of moments when something was not working and I had no idea why, that is the reason I chose [Coding Horror illustration](#coding-horror-on-fire) for this post. But more satisfying it was to figure everything out finally.
 
 ### Installing TensorFlow with GPU support on Windows
 
-TensorFlow itself installs easily [following their instructions](https://www.tensorflow.org/install/install_windows#requirements_to_run_tensorflow_with_gpu_support) with just `pip install`, but Nvidia could definitely try better with deploying their seriously great software to end user. 
+TensorFlow itself installs easily [following their instructions](https://www.tensorflow.org/install/install_windows#requirements_to_run_tensorflow_with_gpu_support) with just `pip install`, but Nvidia could definitely try better with deploying their seriously great software to an end-user. 
 
 [CUDA 9.0](https://developer.nvidia.com/cuda-90-download-archive) (with `tensorflow-gpu` 1.8.0 package you need exactly CUDA 9.0 version, not the most recent one) itself is wrapped in a nice installer except it fails to install Visual Studio integration module and does not even try to install other modules afterwards even though they do not depend on VS integration.
 
-Luckily, they have forums where user *oregonduckman* posted his [workaround](https://devtalk.nvidia.com/default/topic/1033111/cuda-setup-and-installation/cuda-9-1-cannot-install-due-to-failed-visual-studio-integration/post/5259187/#5259187). I was even able to simplify it a bit and also [contributed](https://devtalk.nvidia.com/default/topic/1033111/cuda-setup-and-installation/cuda-9-1-cannot-install-due-to-failed-visual-studio-integration/post/5260927/#5260927) to that forum thread. The solution was surprisingly easy: install everything except VS integration, unzip installer file as an archive and manually launch executables in VS integration folder. Another unobvious step that you should **not** install the latest GPU driver, instead you may need to remove existing Nvidia GPU driver by replacing it with a generic one prior the CUDA installation. Also see [the official installation instructions](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html).
+Luckily, they have forums where user *oregonduckman* posted his [workaround](https://devtalk.nvidia.com/default/topic/1033111/cuda-setup-and-installation/cuda-9-1-cannot-install-due-to-failed-visual-studio-integration/post/5259187/#5259187). I was even able to simplify it a bit and also [contributed](https://devtalk.nvidia.com/default/topic/1033111/cuda-setup-and-installation/cuda-9-1-cannot-install-due-to-failed-visual-studio-integration/post/5260927/#5260927) to that forum thread. The solution was surprisingly easy: install everything except VS integration, unzip installer file as an archive and manually launch executables in VS integration folder. Another unobvious step that you should **not** install the latest GPU driver, instead, you may need to remove existing Nvidia GPU driver by replacing it with a generic one prior the CUDA installation. Also, see [the official installation instructions](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html).
 
-cuDNN installation is even more  a shame since here [you have to manually copy some files](https://docs.nvidia.com/deeplearning/sdk/cudnn-install/#installwindows) from unzipped "installer" and manually set some environment variables.
+cuDNN installation is even more a shame since here [you have to copy some files manually](https://docs.nvidia.com/deeplearning/sdk/cudnn-install/#installwindows) from unzipped "installer" and manually set some environment variables.
 
 I hope I live to see the day when NVidia finally makes a proper installer or maybe even start using a package manager for Windows like [Chocolatey](https://chocolatey.org/).
 
@@ -189,11 +189,11 @@ Docker could help here a lot, but unfortunately using GPU from Docker [is not po
 
 My first approach to this was launching Python process from .NET Core by [System.Diagnostics.Process.Start](https://msdn.microsoft.com/en-us/library/system.diagnostics.process.start(v=vs.110).aspx). It looked at first as a nice and simple while cross-platform way, but it had a number of disadvantages. 
 
-How .NET Core is supposed to pass parameters and input images to Python? How Python should pass result images and costs to .NET Core? On Windows and Linux there are various ways of inter-process communication like named pipes or sockets, but they are not cross-platform. So initially I chose a common temporarily folder as a mean of communication. .NET Core was just placing input files there and passing transfer parameters like iterations count as command-line arguments to Python process. Python in turn was writing result files in that folder and C# was subscribing to changes in that folder with [FileSystemWatcher](https://msdn.microsoft.com/en-us/library/system.io.filesystemwatcher(v=vs.110).aspx).
+How is .NET Core supposed to pass parameters and input images to Python? How should Python pass resulting images and costs to .NET Core? On Windows and Linux there are various ways of inter-process communication like named pipes or sockets, but they are not cross-platform. So initially I chose a common temporarily folder as a mean of communication. .NET Core was just placing input files there and passing transfer parameters like iterations count as command-line arguments to Python process. Python, in turn, was writing result files in that folder and C# was subscribing to changes in that folder with [FileSystemWatcher](https://msdn.microsoft.com/en-us/library/system.io.filesystemwatcher(v=vs.110).aspx).
 
-A big disadvantage was that 500Mb weights of pre-trained VGG network was reloading from disk to memory for each transfer job. TensorFlow graph was also rebuilt from scratch each time. All that was resulting in initialization time of about one minute. 
+A big disadvantage was that 500Mb weights of pre-trained VGG network were reloading from disk to memory for each transfer job. TensorFlow graph was also rebuilt from scratch each time. All that was resulting in initialization time of about one minute. 
 
-The solution is to make Python program long-running and communicate with with by REST with help of Flask framework. So weights are now loaded just once, graph is built just once and as a result request time initialization time on GPU went from one minute to thirty seconds.
+The solution is to make Python program long-running and communicate with it by REST with help of Flask framework. So the weights are now loaded just once, the graph is built just once and, as a result, the request initialization time on GPU went from one minute to thirty seconds.
 
 Since traffic between .NET Core and Python application is quite small (about 300 kB per second) HTTP/JSON is fine for this use-case. In case that would become a bottleneck something like [WebSocket](https://en.wikipedia.org/wiki/WebSocket) and a binary serialization protocol like [Protocol Buffers](https://en.wikipedia.org/wiki/Protocol_Buffers) could be used.
 
@@ -201,9 +201,9 @@ Since traffic between .NET Core and Python application is quite small (about 300
 
 I [mentioned above](#angular-5) that I used a nice Angular 5 template for .NET Core. The issue is in the current version of command-line SDK for .NET or Visual Studio this template is missing but there was Angular 4 template instead. 
 
-I foolishly tried to manually update it to Angular 5 that initially worked fine. But as soon as I started to build Docker images that included building Angular 5 application in production mode with SSR it broke. It turned out that there were breaking changes in SSR from Angular 4 to Angular 5.
+I foolishly tried to update it manually to Angular 5 that initially worked fine. But as soon as I started to build Docker images that included building Angular 5 application in production mode with SSR it broke. It turned out that there were breaking changes in SSR from Angular 4 to Angular 5.
 
-I was already choosing between giving up SSR or giving up Angular 5 when I luckily found that [Microsoft created a new SPA template](https://github.com/aspnet/JavaScriptServices/issues/1288#issuecomment-346003334) with support of both Angular 5 and [SSR](https://docs.microsoft.com/en-us/aspnet/core/spa/angular?view=aspnetcore-2.1&tabs=visual-studio#server-side-rendering) (although SSR is *not* turned on by default). The point was that template was still in beta and it had to be installed manually with
+I was already choosing between giving up SSR or giving up Angular 5 when I luckily found that [Microsoft created a new SPA template](https://github.com/aspnet/JavaScriptServices/issues/1288#issuecomment-346003334) with the support of both Angular 5 and [SSR](https://docs.microsoft.com/en-us/aspnet/core/spa/angular?view=aspnetcore-2.1&tabs=visual-studio#server-side-rendering) (although SSR is *not* turned on by default). The point was that template was still in beta and it had to be installed manually with
 
 ```shell
 dotnet new --install Microsoft.DotNet.Web.Spa.ProjectTemplates::2.0.0
@@ -215,7 +215,7 @@ and used by
 dotnet new angular
 ```
 
-When .NET Core SDK 2.1 is released that will not be required anymore.
+When .NET Core SDK 2.1 is released, that will not be required anymore.
 
 ### Leaking TensorFlow graph nodes (and therefore memory)
 
@@ -225,7 +225,7 @@ The first thing that caught my eye was content cost and style cost nodes of the 
 
 ```python
 # a_C is an activation of a hidden layer when a network input is set to a content image
-# a_G is the same activation when result image is set as a network input
+# a_G is the same activation when resulting image is set as a network input
 # J_content is content cost graph node
 J_content = compute_content_cost(a_C, a_G)
 ```
@@ -243,7 +243,7 @@ That allowed to reuse their graph nodes just by assigning new values to the corr
 
 I also realized that a current session must not be created from scratch for each transfer but a single session can be reused.
 
-Everything seemed to be perfect, I deployed the application to a Google Cloud instance and started to test it more intensively. And then I faced out of memory errors. At first I thought that it is just a peculiarity of Python/TensorFlow memory management and it can be solved just by increasing instance memory but that just postponed the error, not fixed it entirely. I looked at the TensorFlow process memory consumption and saw that it was steadily growing.
+Everything seemed to be perfect, I deployed the application to a Google Cloud instance and started to test it more intensively. And then I faced out of memory errors. At first, I thought that it is just a peculiarity of Python/TensorFlow memory management and it can be solved just by increasing instance memory but that just postponed the error, not fixed it entirely. I looked at the TensorFlow process memory consumption and saw that it was steadily growing.
 
 Long story short, the reason was [leaking TensorFlow computation graph nodes, specifically assign nodes](https://github.com/tensorflow/tensorflow/issues/4151). 
 
@@ -251,7 +251,7 @@ Assign operation in TensorFlow is not like an assign operation from C++ or Pytho
 
 More accurately assign itself is not consuming memory, but [it implicitly creates a constant node with an assigning value](https://github.com/tensorflow/tensorflow/issues/2311). 
 
-By the way, there is a nice way to validate if you program is free of such kind of bugs, by adding `tf.get_default_graph().finalize()` immediately before the training loop. It is not done automatically just because [it would break huge amount of existing code](https://github.com/tensorflow/tensorflow/issues/2311#issuecomment-219524374). But maybe it would be a good thing...
+By the way, there is a nice way to validate if you program is free of such kind of bugs, by adding `tf.get_default_graph().finalize()` immediately before the training loop. It is not done automatically just because [it would break a huge amount of existing code](https://github.com/tensorflow/tensorflow/issues/2311#issuecomment-219524374). But maybe it would be a good thing...
 
 So, instead of:
 
@@ -278,7 +278,7 @@ You must also remove:
 session.run(tf.global_variables_initializer())
 ```
 
-Because that would also try to initialize variables like `input_variable` without defining the corresponding placeholder values. Each variables must be initialized manually instead.
+Because that would also try to initialize variables like `input_variable` without defining the corresponding placeholder values. Each variable must be initialized manually instead.
 
 You will most likely also have to initialize the variables implicitly created by the optimizer. It can be done like:
 
@@ -292,7 +292,7 @@ That fix also sped up the application significantly. A second run with a GPU sta
 
 ### Broken switchMap
 
-[switchMap](https://www.learnrxjs.io/operators/transformation/switchmap.html) is a nice operation except it does not work. When I opened network tab in Chrome debugging tools I was shocked as I saw that requests were not cancelled when they were  taking more than one second, instead they were running indefinitely and what was worse they were piling up and since Chrome executes just a limited number of requests that meant that pending time for each new request was growing.
+[switchMap](https://www.learnrxjs.io/operators/transformation/switchmap.html) is a nice operation except it does not work. When I opened network tab in Chrome debugging tools I was shocked as I saw that requests were not cancelled when they were taking more than one second, instead they were running indefinitely and what was worse they were piling up and since Chrome executes just a limited number of requests that meant that pending time for each new request was growing.
 
 So why `switchMap` may not work? It is obvious, you just need to replace
 
@@ -318,7 +318,7 @@ Why it helps? I do not know, but the good thing they fixed it in 6.0 version. Th
 
 But why HTTP requests where taking so long for server to handle in the first place? Responses were just about 300 kB it was not the Internet speed.
 
-The reason was the TensorFlow thread was using 100% CPU so there was not enough resources for the Flask thread and for the ASP.NET Core process.
+The reason was the TensorFlow thread was using 100% CPU so there were not enough resources for the Flask thread and for the ASP.NET Core process.
 
 Another consequence was [weird exceptions from ASP.NET Core application](https://github.com/aspnet/JavaScriptServices/issues/1514):
 
@@ -347,22 +347,22 @@ services:
         cpu_shares: 1024
 ```
 
-`cpus` sets [the maximum number of cores](https://docs.docker.com/config/containers/resource_constraints/#configure-the-default-cfs-scheduler) that a service can occupy (in that case there were two cores instance).
+`cpus` sets [the maximum number of cores](https://docs.docker.com/config/containers/resource_constraints/#configure-the-default-cfs-scheduler) that a service can occupy (in that case there was two-core instance).
 
 `cpu_shares` sets [a weight of a service](https://docs.docker.com/config/containers/resource_constraints/#configure-the-default-cfs-scheduler) that takes effect only during moments when CPU resources are limited.
 
 I was confused at first by a fact that [those settings were removed in the version 3 of Compose file](https://docs.docker.com/compose/compose-file/compose-versioning/#version-3). The reason is that version 3 is mainly for running stacks of containers in Docker Swarm that has its own way of limiting CPU usage while the version 2 is for good old docker-compose. And [version 2.3 is not so old as it was introduced almost at the same time as 3.4](https://github.com/docker/compose/issues/4513#issuecomment-377311337). 
 
-To make it even easier for a server I started to send the result image only when it is changes. On 2-cores instance it happens once in about 15 seconds and the image size is about 300 kB while for the rest of polling responses that are performed each seconds payload size is just few hundreds of bytes.
+To make it even easier for a server I started to send the resulting image only when it is changes. On a two-core instance it happens once in about 15 seconds and the image size is about 300 kB while for the rest of polling responses that are performed each seconds payload size is just a few hundreds of bytes.
 
 ## Possible improvements and further reading
 
 ### Feed-forward Style Transfer
 
 The Deep Learning field is developing incredibly fast and the original Neural Style Transfer paper called [A Neural Algorithm of Artistic Style
-](https://arxiv.org/pdf/1508.06576.pdf) from September 2, 2015 already became classic. 
+](https://arxiv.org/pdf/1508.06576.pdf) from September 2, 2015 already became classical. 
 
-One major breakthrough was a following paper that introduced a fast feed-forward method of Neural Style Transfer, [Texture Networks: Feed-forward Synthesis of Textures and Stylized Images](https://arxiv.org/abs/1603.03417) from March 10, 2016. That method involves just a single forward propagation through a neural network instead of iterative process and thus it is few orders of magnitude faster. The trade-off is that a network must be trained in advance for each style image and that process is even slower than the original style transfer iterative process. You can [try that algorithm online](https://demos.algorithmia.com/deep-style/).
+One major breakthrough was a following paper that introduced a fast feed-forward method of Neural Style Transfer, [Texture Networks: Feed-forward Synthesis of Textures and Stylized Images](https://arxiv.org/abs/1603.03417) from March 10, 2016. That method involves just a single forward propagation through a neural network instead of an iterative process and thus it is few orders of magnitude faster. The trade-off is that a network must be trained in advance for each style image and that process is even slower than the original style transfer iterative process. You can [try that algorithm online](https://demos.algorithmia.com/deep-style/).
 
 Another paper that proposed a feed-forward method was [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](https://arxiv.org/pdf/1603.08155.pdf) from March 27, 2016. It looks like it is cited more often, but it appeared a bit later.
 
@@ -370,7 +370,7 @@ The next great discovery was a method of arbitrary style transfer that generaliz
 
 Another approaches to arbitrary style transfer are [Exploring the structure of a real-time, arbitrary neural artistic stylization network](https://arxiv.org/pdf/1705.06830.pdf) from August 24, 2017 and [Universal Style Transfer via Feature Transforms](https://arxiv.org/pdf/1705.08086.pdf) from November 17, 2017. 
 
-See [a Medium post with overview of the history of NST](https://medium.com/artists-and-machine-intelligence/neural-artistic-style-transfer-a-comprehensive-look-f54d8649c199).
+See [a Medium post with an overview of the history of NST](https://medium.com/artists-and-machine-intelligence/neural-artistic-style-transfer-a-comprehensive-look-f54d8649c199).
 
 So, the next step for my program could be the replacement of the current iterative implementation with feed-forward one based on one of the previous papers. What could still be challenging is how to implement it with a second style.
 
