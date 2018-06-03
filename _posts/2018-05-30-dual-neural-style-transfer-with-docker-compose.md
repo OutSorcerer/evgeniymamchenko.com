@@ -103,11 +103,11 @@ Considering React vs. Angular, I prefer Angular because, among other things, it 
 
 ### ASP.NET Core
 
-ASP.NET Core application receives REST requests from the Angular SPA, resizes images to 400x300 and puts NST jobs in a queue. Since TensorFlow uses 100% of CPU power, it is not practical to perform two transfers simultaneously, that is why that queue comes in handy. ASP.NET Core application is also responsible for responding to polling from Angular SPA and doing polling of Python back-end itself.
+The ASP.NET Core component receives REST requests from the Angular SPA, resizes images to 400x300 and puts NST jobs in a queue. Since TensorFlow uses 100% of CPU power, it is not practical to perform two transfers simultaneously, that is why that queue comes in handy. The ASP.NET Core component is also responsible for responding to the polling from the Angular SPA and doing the polling of Python back-end itself.
 
-C# is my favorite language so the choice of ASP.NET Core is natural for me. But, considering Microsoft's efforts to improve the C# language (comparing with Java, C# syntax recently was and still is years ahead) and their efforts to move .NET Framework towards open-source and cross-platform development and deployment everyone should take a closer look at .NET Core.
+C# is my favorite language so the choice of ASP.NET Core is natural for me. Microsoft is doing a great job improving the C# language (comparing with Java, C# syntax recently [was](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-6) [and](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7) [still](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7-1) [is](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7-2) [years](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7-3) [ahead](http://www.dotnetcurry.com/csharp/1440/csharp-8-new-features)) and building great tools for the developer productivity like Visual Studio and VS Code (and, thanks to JetBrains there are also great extensions/alternatives like ReSharper or Rider). I admit that the open-source community around C# is not as productive as Java or Python communities, but considering that the framework itself and many Microsoft libraries became open-source and cross-platform and [Microsoft supports others in building open-source software based on .NET](https://dotnetfoundation.org/), everyone should take a closer look at .NET Core.
 
-Also, using C# here is a nice example of how two micro-services written in different languages possibly by different teams can easily communicate using REST. Python is very popular for machine learning, but in other spheres, people may use Java, .NET, Node.js, etc. so such a scenario is what we would often see in a real world.
+Also, using C# here is a nice example of how two micro-services written in different languages possibly by different teams could easily communicate using REST. Python is very popular for machine learning, but in other spheres, people may use Java, .NET, Node.js, etc. so such a scenario is what we would often see in the real world.
 
 ### Flask
 
@@ -151,7 +151,7 @@ I would appreciate if someone would recommend me a nicer replacement of Flask fo
 
 ### TensorFlow
 
-[TensorFlow](https://www.tensorflow.org/) is an open source software library for numerical computation using data flow graphs. It has a built-in gradient computation, many supported operations from simple matrix addition or multiplication to pre-implemented convolution or sampling layers, optimizers from `GradientDescentOptimizer` to `AdamOptimizer`, ability to run on GPUs and TPUs and many more which makes it one of the most popular tools for building neural network models.
+[TensorFlow](https://www.tensorflow.org/) is an open-source software library for numerical computation using data flow graphs. It has a built-in gradient computation, many supported operations from simple matrix addition or multiplication to pre-implemented convolution or sampling layers, optimizers from `GradientDescentOptimizer` to `AdamOptimizer`, ability to run on GPUs and TPUs and many more which makes it one of the most popular tools for building neural network models.
 
 The program starts with loading weights of pre-trained VGG network and building a computational graph. A nice thing is that a single graph and a single TensorFlow Session can be used for handling different user inputs which makes initialization time much faster.
 
