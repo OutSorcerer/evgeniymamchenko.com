@@ -56,7 +56,7 @@ The interesting fact here is that typically with convolution neural networks ima
 
 The mentioned cost function is a sum of two terms.
 
-The first one is the content cost multiplied by its weight (a parameter that can be configured in UI as mentioned above). The content cost is the squared Euclidean distance between (an L2-norm of the difference of) the values of an intermediate convolution layer on the content image and the resulting image normalized by the input size. 
+The first one is the content cost multiplied by its weight (a parameter that can be configured in UI as mentioned above). The content cost is the squared Euclidean distance between (the squared L2-norm of the difference of) the values of an intermediate convolution layer on the content image and the resulting image normalized by the input size. 
 
 The second one is thereafter the style cost multiplied by the style cost weight parameter. 
 
