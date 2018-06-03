@@ -153,13 +153,13 @@ I would appreciate if someone would recommend me a nicer replacement of Flask fo
 
 [TensorFlow](https://www.tensorflow.org/) is an open-source software library for numerical computation using data flow graphs. It has a built-in gradient computation, many supported operations from simple matrix addition or multiplication to pre-implemented convolution or sampling layers, optimizers from `GradientDescentOptimizer` to `AdamOptimizer`, ability to run on GPUs and TPUs and many more which makes it one of the most popular tools for building neural network models.
 
-The program starts with loading weights of pre-trained VGG network and building a computational graph. A nice thing is that a single graph and a single TensorFlow Session can be used for handling different user inputs which makes initialization time much faster.
+The program starts with loading weights of the pre-trained VGG network and building a computational graph. A nice thing is that a single graph and a single TensorFlow session can be used for handling different user inputs which makes initialization time much faster.
 
-Since initialization and training take significant time, but we want to keep a user up to date by responding to HTTP requests TensorFlow code works in a separate thread. 
+Since initialization and training take significant time, but we want to keep a user up to date by responding to HTTP requests, TensorFlow code works in a separate thread. 
 
 This code is based on an assignment *Art Generation with Neural Style Transfer* from Andrew's Ng [course](https://www.coursera.org/learn/convolutional-neural-networks), which is a part of [Deep Learning specialization](https://www.deeplearning.ai/).
 
-My changes include a support for a second style image that I described [above](#how-the-original-neural-style-transfer-was-extended) and various performance improvements that I am going to describe [below](#leaking-tensorflow-graph-nodes-and-therefore-memory).
+My changes include the support for a second style image that I described [above](#how-the-original-neural-style-transfer-algorithm-was-extended) and various performance improvements that I am going to describe [below](#leaking-tensorflow-graph-nodes-and-therefore-memory).
 
 ### Docker Compose
 
@@ -193,7 +193,7 @@ My first approach to this was launching Python process from .NET Core by [System
 
 How is .NET Core supposed to pass parameters and input images to Python? How should Python pass resulting images and costs to .NET Core? On Windows and Linux there are various ways of inter-process communication like named pipes or sockets, but they are not cross-platform. So initially I chose a common temporarily folder as a mean of communication. .NET Core was just placing input files there and passing transfer parameters like iterations count as command-line arguments to Python process. Python, in turn, was writing result files in that folder and C# was subscribing to changes in that folder with [FileSystemWatcher](https://msdn.microsoft.com/en-us/library/system.io.filesystemwatcher(v=vs.110).aspx).
 
-A big disadvantage was that 500Mb weights of pre-trained VGG network were reloading from disk to memory for each transfer job. TensorFlow graph was also rebuilt from scratch each time. All that was resulting in initialization time of about one minute. 
+A big disadvantage was that 500Mb weights of the pre-trained VGG network were reloading from disk to memory for each transfer job. TensorFlow graph was also rebuilt from scratch each time. All that was resulting in initialization time of about one minute. 
 
 The solution is to make Python program long-running and communicate with it by REST with help of Flask framework. So the weights are now loaded just once, the graph is built just once and, as a result, the request initialization time on GPU went from one minute to thirty seconds.
 
