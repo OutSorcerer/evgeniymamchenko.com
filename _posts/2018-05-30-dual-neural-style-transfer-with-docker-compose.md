@@ -66,7 +66,7 @@ For a single layer, the style cost is the squared Euclidean distance between [Gr
 
 Gram matrix is approximately proportional to the covariance matrix (in case values are centered). Its diagonal elements are just squared L2 norms of the corresponding channel activations reshaped as one-dimensional vectors.
 
-For a detailed explanation of Neural Style transfer you can [see the original paper](https://arxiv.org/abs/1508.06576), read [my source code](https://gitlab.com/OutSorcerer/NeuralStyleTransferWeb) or [watch the video and complete the corresponding programming assignment](https://www.coursera.org/learn/convolutional-neural-networks/home/week/4) from the CNN course on Coursera on which my code is based on (all videos are available for free [on YouTube](https://www.youtube.com/watch?v=Re2C9INXCNc&index=38&list=PLBAGcD3siRDjBU8sKRk0zX9pMz9qeVxud) but Coursera subscription is required to complete the programming assignment).
+For a detailed explanation of Neural Style Transfer you can [see the original paper](https://arxiv.org/abs/1508.06576), read [my source code](https://gitlab.com/OutSorcerer/NeuralStyleTransferWeb) or [watch the video and complete the corresponding programming assignment](https://www.coursera.org/learn/convolutional-neural-networks/home/week/4) from the CNN course on Coursera on which my code is based on (all videos are available for free [on YouTube](https://www.youtube.com/watch?v=Re2C9INXCNc&index=38&list=PLBAGcD3siRDjBU8sKRk0zX9pMz9qeVxud) but Coursera subscription is required to complete the programming assignment).
 
 ## How the original Neural Style Transfer algorithm was extended
 
