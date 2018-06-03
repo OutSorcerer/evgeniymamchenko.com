@@ -52,7 +52,7 @@ Intuitively it can be defined as generating a picture which content is similar t
 
 In a more detailed way, it is a result of iterative optimization of a specific cost function defined on a resulting image. On each step of the optimization, we compute the gradient of that cost function with respect to each pixel of resulting image and slightly change the resulting image in the direction opposite to the gradient as we always do in the [Gradient descent algorithm](https://en.wikipedia.org/wiki/Gradient_descent).
 
-The interesting fact here is that typically with convolution neural networks images are fixed and weights of the network are the subject of optimization. On the contrary, in NST algorithm the weights of CNN are fixed while the input image is optimized. In [the original paper](https://arxiv.org/pdf/1508.06576.pdf) the CNN with [VGG architecture](https://www.quora.com/What-is-the-VGG-neural-network) pre-trained on [ImageNet dataset](https://en.wikipedia.org/wiki/ImageNet). This application also loads weights of pre-trained VGG model. What is interesting is [there could something special in VGG architecture that makes it especially good for Neural Style Transfer](https://www.reddit.com/r/MachineLearning/comments/7rrrk3/d_eat_your_vggtables_or_why_does_neural_style/) although some people achieved good results with other architectures too.
+The interesting fact here is that typically with convolution neural networks images are fixed and weights of the network are the subject of optimization. On the contrary, in NST algorithm the weights of CNN are fixed while the input image is optimized. In [the original paper](https://arxiv.org/abs/1508.06576) the CNN with [VGG architecture](https://www.quora.com/What-is-the-VGG-neural-network) pre-trained on [ImageNet dataset](https://en.wikipedia.org/wiki/ImageNet). This application also loads weights of pre-trained VGG model. What is interesting is [there could something special in VGG architecture that makes it especially good for Neural Style Transfer](https://www.reddit.com/r/MachineLearning/comments/7rrrk3/d_eat_your_vggtables_or_why_does_neural_style/) although some people achieved good results with other architectures too.
 
 The mentioned cost function is a sum of two terms.
 
@@ -64,7 +64,7 @@ Unlike the content cost, the style cost is computed on multiple layers which are
 
 Gram matrix is approximately proportional to the covariance matrix (in case values are centered). Its diagonal elements are just squared L2 norms of the corresponding channel activations reshaped as one-dimensional vectors.
 
-For a detailed explanation of Neural Style transfer you can [see the original paper](https://arxiv.org/pdf/1508.06576.pdf), read [my source code](https://gitlab.com/OutSorcerer/NeuralStyleTransferWeb) or [watch the video and complete the corresponding programming assignment](https://www.coursera.org/learn/convolutional-neural-networks/home/week/4) from the CNN course on Coursera on which my code is based on (all videos are available for free [on YouTube](https://www.youtube.com/watch?v=Re2C9INXCNc&index=38&list=PLBAGcD3siRDjBU8sKRk0zX9pMz9qeVxud) but Coursera subscription is required to complete the programming assignment).
+For a detailed explanation of Neural Style transfer you can [see the original paper](https://arxiv.org/abs/1508.06576), read [my source code](https://gitlab.com/OutSorcerer/NeuralStyleTransferWeb) or [watch the video and complete the corresponding programming assignment](https://www.coursera.org/learn/convolutional-neural-networks/home/week/4) from the CNN course on Coursera on which my code is based on (all videos are available for free [on YouTube](https://www.youtube.com/watch?v=Re2C9INXCNc&index=38&list=PLBAGcD3siRDjBU8sKRk0zX9pMz9qeVxud) but Coursera subscription is required to complete the programming assignment).
 
 ## How the original Neural Style Transfer algorithm was extended
 
@@ -360,15 +360,15 @@ To make it even easier for a server I started to send the resulting image only w
 ### Feed-forward Style Transfer
 
 The Deep Learning field is developing incredibly fast and the original Neural Style Transfer paper called [A Neural Algorithm of Artistic Style
-](https://arxiv.org/pdf/1508.06576.pdf) from September 2, 2015 already became classical. 
+](https://arxiv.org/abs/1508.06576) from September 2, 2015 already became classical. 
 
 One major breakthrough was a following paper that introduced a fast feed-forward method of Neural Style Transfer, [Texture Networks: Feed-forward Synthesis of Textures and Stylized Images](https://arxiv.org/abs/1603.03417) from March 10, 2016. That method involves just a single forward propagation through a neural network instead of an iterative process and thus it is few orders of magnitude faster. The trade-off is that a network must be trained in advance for each style image and that process is even slower than the original style transfer iterative process. You can [try that algorithm online](https://demos.algorithmia.com/deep-style/).
 
-Another paper that proposed a feed-forward method was [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](https://arxiv.org/pdf/1603.08155.pdf) from March 27, 2016. It looks like it is cited more often, but it appeared a bit later.
+Another paper that proposed a feed-forward method was [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](https://arxiv.org/abs/1603.08155) from March 27, 2016. It looks like it is cited more often, but it appeared a bit later.
 
 The next great discovery was a method of arbitrary style transfer that generalized the previous feed-forward approach to an arbitrary style in [ZM-Net: Real-time Zero-shot Image Manipulation Network](https://arxiv.org/abs/1703.07255) from March 21, 2017.
 
-Another approaches to arbitrary style transfer are [Exploring the structure of a real-time, arbitrary neural artistic stylization network](https://arxiv.org/pdf/1705.06830.pdf) from August 24, 2017 and [Universal Style Transfer via Feature Transforms](https://arxiv.org/pdf/1705.08086.pdf) from November 17, 2017. 
+Another approaches to arbitrary style transfer are [Exploring the structure of a real-time, arbitrary neural artistic stylization network](https://arxiv.org/abs/1705.06830) from August 24, 2017 and [Universal Style Transfer via Feature Transforms](https://arxiv.org/abs/1705.08086) from November 17, 2017. 
 
 See [a Medium post with an overview of the history of NST](https://medium.com/artists-and-machine-intelligence/neural-artistic-style-transfer-a-comprehensive-look-f54d8649c199).
 
