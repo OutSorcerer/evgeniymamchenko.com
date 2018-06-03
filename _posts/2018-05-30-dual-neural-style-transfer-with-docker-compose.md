@@ -40,7 +40,7 @@ title: Dual Neural Style Transfer with Docker Compose
 
     *This is how the UI looks in the middle of a style transfer when **two** styles (a starry sky and neon lights) are simultaneously applied to a single content image.*
 
-    >Please note that <http://nst-online.evgeniymamchenko.com> works just on 2-cores machine, where 100 iterations of transfer take about 30 minutes. My mobile GPU Nvidia GeForce GTX 1050 works about *100 times* faster. Unfortunately, a GPU in the cloud is too expensive right now (one of the cheapest GPU instances with Nvidia TESLA K80 Module costs about $700 per month, which gives the total price of the module in just half a year, I guess we should thank the Blockchain Bubble for that and for the wasted non-renewable energy resources, but let's hope it will be a benefit for development of GPU hardware in the long term).
+    >Please note that <http://nst-online.evgeniymamchenko.com> works just on 2-cores machine, where 100 iterations of transfer take about 30 minutes. My mobile GPU Nvidia GeForce GTX 1050 works about *100 times* faster. Unfortunately, a GPU in the cloud is too expensive right now (one of the cheapest GPU instances with Nvidia TESLA K80 Module costs about $700 per month, which gives the total price of the module in just half a year, I guess we should thank the Blockchain Bubble for that and for the wasted non-renewable energy resources, but let's hope it will be a benefit for the development of GPU hardware in the long term).
 
     If your job status is "queued" that means that the back-end is busy at the moment but it will start processing your input as soon as all previous jobs are done.
 
