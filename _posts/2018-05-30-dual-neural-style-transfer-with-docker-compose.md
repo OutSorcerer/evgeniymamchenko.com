@@ -95,7 +95,7 @@ const polling = Observable.timer(0, 1000)
     .switchMap(() => this.http.get<any>(this.baseUrl + `api/neural-style-transfer/jobs/${jobId}`));
 ```
 
-Angular 5 is my framework of choice because of my love to statically typed languages like C# or TypeScript and also because of the nice SPA template included with .NET Core CLI. That template is even capable of [server-side rendering](https://angular.io/guide/universal) which is nice for SEO and the user experience tool as if significantly decreases the initial page load time.
+Angular 5 is my framework of choice because of my love to statically typed languages like C# or TypeScript and also because of the nice SPA template included with .NET Core CLI. That template is even capable of the [server-side rendering](https://angular.io/guide/universal) which is a nice tool for SEO and the user experience as it significantly decreases the initial page load time.
 
 The template (and this application) uses [Bootstrap](https://getbootstrap.com/) library which looks a bit old-fashioned in 2018, I hope the next template from Microsoft will use [Angular Material](https://material.angular.io/) which is more modern-looking.
 
