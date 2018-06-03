@@ -60,7 +60,9 @@ The first one is the content cost multiplied by its weight (a parameter that can
 
 The second one is thereafter the style cost multiplied by the style cost weight parameter. 
 
-Unlike the content cost, the style cost is computed on multiple layers which are summed up with their weights which are also model parameters. For a single layer, the style cost is the squared Euclidean distance between [Gram matrices](https://en.wikipedia.org/wiki/Gramian_matrix) of that layer activations (with `(number_of_channels, height*width)` shape) for the resulting image and the style image.
+Unlike the content cost, the style cost is computed on multiple layers which are summed up with their weights which are also model parameters. In the context of this application, there are five such layers, each weight is equal to 0.2 and cannot be changed from the UI yet. The shallower layers are responsible for lower-level features like those  that detect horizontal lines, vertical lines, diagonal lines and other simple geometrical shapes, while deeper layers are responsible for higher-level features like those that detect parts of objects or entire objects like eyes, flowers, cars, cats and dogs, although sometimes it is pretty hard to figure out what a particular feature detects.
+
+For a single layer, the style cost is the squared Euclidean distance between [Gram matrices](https://en.wikipedia.org/wiki/Gramian_matrix) of that layer activations (with `(number_of_channels, height*width)` shape) for the resulting image and the style image.
 
 Gram matrix is approximately proportional to the covariance matrix (in case values are centered). Its diagonal elements are just squared L2 norms of the corresponding channel activations reshaped as one-dimensional vectors.
 
