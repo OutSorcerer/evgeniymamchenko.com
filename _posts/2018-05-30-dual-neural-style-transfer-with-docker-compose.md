@@ -380,7 +380,7 @@ So, the next step for my program could be the replacement of the current iterati
 
 The current implementation like the underlying VGG network can only process images of the fixed size (400x300), so if a chosen image size is different it is resized by .NET Core application before it is assigned as an input of a neural network.
 
-In a [recent post on fast.ai](http://www.fast.ai/2018/04/30/dawnbench-fastai/) the author mentioned adaptive pooling layers that could help to process an image of arbitrary size (as far as I understand it is based on [Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition](https://arxiv.org/abs/1406.4729)). That would be useful for neural style transfer too.
+In a [recent post on fast.ai](http://www.fast.ai/2018/04/30/dawnbench-fastai/) the author mentioned adaptive pooling layers that could help to process an image of arbitrary size (as far as I understand it is based on [Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition](https://arxiv.org/abs/1406.4729)). That would be useful for Neural Style Transfer too.
 
 ### Processing multiple user requests simultaneously
 
