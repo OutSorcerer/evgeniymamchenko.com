@@ -135,7 +135,7 @@ def convert_input_to(class_):
         current_job = job
 ```
 
-Looks nice, but what if a decorated function has more arguments? (I can rewrite the code, of course, but the point is there should be a built-in and generic solution out-of-the-box on the contrary to making users copy-paste code that performs very basic tasks). 
+Looks nice, but what if a decorated function had more arguments? I could rewrite the code, of course, but the point is there should be a built-in and generic solution out-of-the-box on the contrary to making users copy-paste code that performs very basic tasks. 
 
 For comparison the similar place in ASP.NET Core does not use any custom code and looks like this:
 
