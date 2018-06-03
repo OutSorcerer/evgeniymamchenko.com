@@ -30,9 +30,9 @@ title: Dual Neural Style Transfer with Docker Compose
 
     * Iterations. The number of optimization steps taken. The higher the number, the lower the cost and, generally, the more beautiful the result.
 
-    * Content cost weight. A multiplier of the content cost term in the total cost. Higher the number more similar to the content image result is. 
+    * Content cost weight. The multiplier of the content cost term in the total cost. The higher the number, the more similar to the content image the result is. 
 
-    * Style cost weight. A multiplier of the style cost term in the total cost. Higher the number more similar to the style image result is. 
+    * Style cost weight. The multiplier of the style cost term in the total cost. The higher the number, the more similar to the style image the result is. 
 
 * Click "Launch" button. The transfer is starting, the resulting image and other transfer details are shown on the screen.
 
