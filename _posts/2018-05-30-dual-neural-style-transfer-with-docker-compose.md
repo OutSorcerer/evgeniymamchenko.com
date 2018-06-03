@@ -163,11 +163,11 @@ My changes include the support for a second style image that I described [above]
 
 ### Docker Compose
 
-Docker as a containerization software provides an *immutable environment* which helps a lot with making deployment predictable and reducing time costs for it. That is useful both for Python and .NET Core / Angular parts of the application. They are both wrapped into Docker containers.
+Docker as a containerization software that provides an *immutable environment* which helps a lot with making deployment predictable and reducing time expenses for it. That is useful both for Python and .NET Core / Angular parts of the application. They are both wrapped into Docker containers.
 
-Docker Compose is, in turn, a tool to run multi-container applications. One of its abilities is virtual networks that where we can put our services are visible to each other, but not to outside world. In this example, Python service should not communicate with user directly so it does not publish any ports to outside and it can only receive requests from .NET Core service which on the contrary publishes port 80 to receive user requests.
+Docker Compose is, in turn, a tool to run multi-container applications. One of its abilities is virtual networks where we can put our services so that they are visible to each other, but not to outside world. In this example, the Python container should not communicate with a user directly so it does not publish any ports to outside and it can only receive requests from the .NET Core container, which, on the contrary, publishes port 80 to receive user requests.
 
-With Docker and Docker Compose you can launch this application just in minutes without spending much time on environment preparation (which as with CUDA on Windows might be challenging). You will find the detailed instructions in the Readme file of the corresponding GitLab repository.
+With Docker and Docker Compose you can launch this application just in minutes without spending much time on environment preparation (which might be a tedious task). You will find the detailed instructions in the README file of [the corresponding GitLab repository](https://gitlab.com/OutSorcerer/NeuralStyleTransferWeb).
 
 ## Challenges
 
