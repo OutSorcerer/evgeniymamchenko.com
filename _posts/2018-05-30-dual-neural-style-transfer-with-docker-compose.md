@@ -66,7 +66,7 @@ Gram matrix is approximately proportional to the covariance matrix (in case valu
 
 For a detailed explanation of Neural Style transfer you can [see the original paper](https://arxiv.org/pdf/1508.06576.pdf), read [my source code](https://gitlab.com/OutSorcerer/NeuralStyleTransferWeb) or [watch the video and complete the corresponding programming assignment](https://www.coursera.org/learn/convolutional-neural-networks/home/week/4) from the CNN course on Coursera on which my code is based on (all videos are available for free [on YouTube](https://www.youtube.com/watch?v=Re2C9INXCNc&index=38&list=PLBAGcD3siRDjBU8sKRk0zX9pMz9qeVxud) but Coursera subscription is required to complete the programming assignment).
 
-## How the original Neural Style Transfer was extended
+## How the original Neural Style Transfer algorithm was extended
 
 To make the application more interesting, I decided to extend the original algorithm somehow. What if we try to apply two styles simultaneously? Surprisingly, it worked quite well: styles are not overlapping but rather applied to different parts of the image depending on which part is more suitable for each style. Let us call it "dual NST".
 
