@@ -189,15 +189,15 @@ Docker could help here a lot, but unfortunately using GPU from Docker [is not po
 
 ### Communication between .NET Core and Python
 
-My first approach to this was launching Python process from .NET Core by [System.Diagnostics.Process.Start](https://msdn.microsoft.com/en-us/library/system.diagnostics.process.start(v=vs.110).aspx). It looked at first as a nice and simple while cross-platform way, but it had a number of disadvantages. 
+My first approach to this was launching a Python process from .NET Core by [System.Diagnostics.Process.Start](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.process.start). At first, it looked as a nice and simple while cross-platform way, but it had a number of disadvantages. 
 
-How is .NET Core supposed to pass parameters and input images to Python? How should Python pass resulting images and costs to .NET Core? On Windows and Linux there are various ways of inter-process communication like named pipes or sockets, but they are not cross-platform. So initially I chose a common temporarily folder as a mean of communication. .NET Core was just placing input files there and passing transfer parameters like iterations count as command-line arguments to Python process. Python, in turn, was writing result files in that folder and C# was subscribing to changes in that folder with [FileSystemWatcher](https://msdn.microsoft.com/en-us/library/system.io.filesystemwatcher(v=vs.110).aspx).
+How is .NET Core supposed to pass parameters and input images to Python? How should Python pass resulting images and costs to .NET Core? On Windows and Linux there are various ways of inter-process communication like named pipes or sockets, but they are not cross-platform. So initially I chose a common temporarily folder as a mean of communication. The .NET Core process was just placing input files there and passing transfer parameters like iterations count as command-line arguments to the Python process. The Python process, in turn, was writing result files in that folder and the .NET Core process was subscribing to changes in that folder with [FileSystemWatcher](https://docs.microsoft.com/en-us/dotnet/api/system.io.filesystemwatcher).
 
-A big disadvantage was that 500Mb weights of the pre-trained VGG network were reloading from disk to memory for each transfer job. TensorFlow graph was also rebuilt from scratch each time. All that was resulting in initialization time of about one minute. 
+A big disadvantage was that 500Mb weights of the pre-trained VGG network were reloading from disk to memory for each transfer job. TensorFlow graph was also rebuilding from scratch each time. All that was resulting in initialization time of about one minute. 
 
-The solution is to make Python program long-running and communicate with it by REST with help of Flask framework. So the weights are now loaded just once, the graph is built just once and, as a result, the request initialization time on GPU went from one minute to thirty seconds.
+The solution was to the make Python process long-running and communicate with it by REST with help of Flask framework. So the weights are now loaded just once, the graph is built just once and, as a result, the request initialization time on GPU went from one minute to thirty seconds.
 
-Since traffic between .NET Core and Python application is quite small (about 300 kB per second) HTTP/JSON is fine for this use-case. In case that would become a bottleneck something like [WebSocket](https://en.wikipedia.org/wiki/WebSocket) and a binary serialization protocol like [Protocol Buffers](https://en.wikipedia.org/wiki/Protocol_Buffers) could be used.
+Since the traffic between .NET Core and Python components is quite small (about 300 kB per second) HTTP/JSON is fine for this use-case. In case that would become a bottleneck something like [WebSocket](https://en.wikipedia.org/wiki/WebSocket) and a binary serialization protocol like [Protocol Buffers](https://en.wikipedia.org/wiki/Protocol_Buffers) could be used. Another alternative is Google's [gRPC](https://github.com/grpc/grpc).
 
 ### Usage of server-side rendering and Angular 5 from .NET
 
