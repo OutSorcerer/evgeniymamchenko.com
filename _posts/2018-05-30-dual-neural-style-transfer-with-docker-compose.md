@@ -86,7 +86,7 @@ Let us talk in more detail about the building blocks of the application.
 
 ### Angular 5
 
-That is the face of the application. It is responsible for validating a user input and sending it to the server.
+[Angular 5](https://angular.io/) component is the face of the application. It is responsible for validating a user input and sending it to the server.
 
 When a transfer job is in progress, it does polling with a one-second interval to show results in real time. [rxjs](https://angular.io/guide/rx-library) is a nice tool for filtering, mapping and combining streams of asynchronous events where tasks like HTTP polling are solved in a powerful and concise way. For example, if some request was not able to complete in one second and the next request already started it makes no sense to wait for both of them and waste connections as the data from the previous request are already obsolete. [switchMap](https://www.learnrxjs.io/operators/transformation/switchmap.html) operator nicely solves this problem:
 
@@ -103,7 +103,7 @@ Considering React vs. Angular, I prefer Angular because, among other things, it 
 
 ### ASP.NET Core
 
-The ASP.NET Core component receives REST requests from the Angular SPA, resizes images to 400x300 and puts NST jobs in a queue. Since TensorFlow uses 100% of CPU power, it is not practical to perform two transfers simultaneously, that is why that queue comes in handy. The ASP.NET Core component is also responsible for responding to the polling from the Angular SPA and doing the polling of Python back-end itself.
+The [ASP.NET Core](https://github.com/aspnet/Home) component receives REST requests from the Angular SPA, resizes images to 400x300 and puts NST jobs in a queue. Since TensorFlow uses 100% of CPU power, it is not practical to perform two transfers simultaneously, that is why that queue comes in handy. The ASP.NET Core component is also responsible for responding to the polling from the Angular SPA and doing the polling of Python back-end itself.
 
 C# is my favorite language so the choice of ASP.NET Core is natural for me. Microsoft is doing a great job improving the C# language (comparing with Java, C# syntax recently [was](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-6) [and](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7) [still](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7-1) [is](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7-2) [years](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-7-3) [ahead](http://www.dotnetcurry.com/csharp/1440/csharp-8-new-features)) and building great tools for the developer productivity like Visual Studio and VS Code (and, thanks to JetBrains there are also great extensions/alternatives like ReSharper or Rider). I admit that the open-source community around C# is not as productive as Java or Python communities, but considering that the framework itself and many Microsoft libraries became open-source and cross-platform and [Microsoft supports others in building open-source software based on .NET](https://dotnetfoundation.org/), everyone should take a closer look at .NET Core.
 
@@ -111,7 +111,7 @@ Also, using C# here is a nice example of how two micro-services written in diffe
 
 ### Flask
 
-Flask is a popular Python framework for building Web APIs including RESTful ones. 
+[Flask](http://flask.pocoo.org/) is a popular Python framework for building Web APIs including RESTful ones. 
 
 It wraps around the TensorFlow model which is running in a background thread while on another thread it responds to requests to start, stop or query a status of an NST job.
 
@@ -163,9 +163,9 @@ My changes include the support for a second style image that I described [above]
 
 ### Docker Compose
 
-Docker as a containerization software that provides an *immutable environment* which helps a lot with making deployment predictable and reducing time expenses for it. That is useful both for Python and .NET Core / Angular parts of the application. They are both wrapped into Docker containers.
+[Docker](https://www.docker.com/) as a containerization software that provides an *immutable environment* which helps a lot with making deployment predictable and reducing time expenses for it. That is useful both for Python and .NET Core / Angular parts of the application. They are both wrapped into Docker containers.
 
-Docker Compose is, in turn, a tool to run multi-container applications. One of its abilities is virtual networks where we can put our services so that they are visible to each other, but not to outside world. In this example, the Python container should not communicate with a user directly so it does not publish any ports to outside and it can only receive requests from the .NET Core container, which, on the contrary, publishes port 80 to receive user requests.
+[Docker Compose](https://docs.docker.com/compose/overview/) is, in turn, a tool to run multi-container applications. One of its abilities is virtual networks where we can put our services so that they are visible to each other, but not to outside world. In this example, the Python container should not communicate with a user directly so it does not publish any ports to outside and it can only receive requests from the .NET Core container, which, on the contrary, publishes port 80 to receive user requests.
 
 With Docker and Docker Compose you can launch this application just in minutes without spending much time on environment preparation (which might be a tedious task). You will find the detailed instructions in the README file of [the corresponding GitLab repository](https://gitlab.com/OutSorcerer/NeuralStyleTransferWeb).
 
