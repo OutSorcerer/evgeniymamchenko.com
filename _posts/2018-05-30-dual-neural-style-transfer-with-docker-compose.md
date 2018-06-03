@@ -28,7 +28,7 @@ title: Dual Neural Style Transfer with Docker Compose
 
 * Optionally change the parameters.
 
-    * Iterations. The number of optimization steps taken. Higher the number lower the cost that generally leads to a better-looking result.
+    * Iterations. The number of optimization steps taken. The higher the number, the lower the cost and, generally, the more beautiful the result.
 
     * Content cost weight. A multiplier of the content cost term in the total cost. Higher the number more similar to the content image result is. 
 
