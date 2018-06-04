@@ -117,7 +117,7 @@ It wraps around the TensorFlow model which is running in a background thread whi
 
 Even though there are special `flask_restful` and `flask_jsonpify` packages creating REST/JSON services seems to be not so smooth with Flask as it is with ASP.NET Core. I believe it is not only my lack of experience with it because some parts of my code are based on high-ranked answers on Stack Overflow and instead of using some built-in function they are suggesting to copy-paste their implementations of it.
 
-To be more clear here is an example of parsing of HTTP request body in JSON format.
+To be more clear here is an example of parsing of an HTTP request body in JSON format:
 
 ```python
 # This decorator takes the class/named tuple to convert any JSON data in incoming request to. 
