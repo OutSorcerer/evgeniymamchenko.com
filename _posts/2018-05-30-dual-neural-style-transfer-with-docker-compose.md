@@ -299,7 +299,7 @@ That fix also sped up the application significantly. A second run with a GPU sta
 
 ### Broken switchMap
 
-[switchMap](https://www.learnrxjs.io/operators/transformation/switchmap.html) is a nice operation except it does not work. When I opened network tab in Chrome debugging tools I was shocked as I saw that requests were not cancelled when they were taking more than one second, instead they were running indefinitely and what was worse they were piling up and since Chrome executes just a limited number of requests that meant that pending time for each new request was growing.
+[switchMap](https://www.learnrxjs.io/operators/transformation/switchmap.html) is a nice operation except it does not work. When I opened network tab in Chrome debugging tools, I was shocked as I saw that requests were not cancelled when they were taking more than one second, instead they were running indefinitely and, what was even worse, they were piling up and, since Chrome executes just a limited number of requests, that meant that pending time for each new request was growing.
 
 So why `switchMap` may not work? It is obvious, you just need to replace
 
@@ -319,7 +319,7 @@ and it starts to work. In exchange for that you now have to explicitly import ev
 import 'rxjs/add/operator/switchMap';
 ```
 
-Why it helps? I do not know, but the good thing they fixed it in 6.0 version. Thanks to [Airblader](https://github.com/Airblader) who created a [GitHub issue](https://github.com/ReactiveX/rxjs/issues/3306) where I found this.
+Why it helps? I do not know, but the good thing [they fixed it in 6.0 version](https://github.com/ReactiveX/rxjs/issues/3306#issuecomment-374346659). Thanks to [Airblader](https://github.com/Airblader) who created a [GitHub issue](https://github.com/ReactiveX/rxjs/issues/3306) where I found this.
 
 ### Long response time
 
