@@ -366,7 +366,7 @@ To make it even easier for a server I started to send the resulting image only w
 
 ### Feed-forward Style Transfer
 
-The Deep Learning field is developing incredibly fast and the original Neural Style Transfer paper called [A Neural Algorithm of Artistic Style
+The Deep Learning field is developing incredibly fast, and the original Neural Style Transfer paper called [A Neural Algorithm of Artistic Style
 ](https://arxiv.org/abs/1508.06576) from September 2, 2015 already became obsolete in terms of the implementation details of the style transfer idea (at the same time the idea itself had a huge impact even outside of the scientific community). 
 
 One major breakthrough was a following paper that introduced a fast feed-forward method of Neural Style Transfer, [Texture Networks: Feed-forward Synthesis of Textures and Stylized Images](https://arxiv.org/abs/1603.03417) from March 10, 2016. That method involves just a single forward propagation through a neural network instead of an iterative process and thus it is few orders of magnitude faster. The trade-off is that a network must be trained in advance for each style image and that process is even slower than the original style transfer iterative process. You can [try that algorithm online](https://demos.algorithmia.com/deep-style/).
@@ -375,11 +375,11 @@ Another paper that proposed a feed-forward method was [Perceptual Losses for Rea
 
 The next great discovery was a method of arbitrary style transfer that generalized the previous feed-forward approach to an arbitrary style in [ZM-Net: Real-time Zero-shot Image Manipulation Network](https://arxiv.org/abs/1703.07255) from March 21, 2017.
 
-Another approaches to arbitrary style transfer are [Exploring the structure of a real-time, arbitrary neural artistic stylization network](https://arxiv.org/abs/1705.06830) from August 24, 2017 and [Universal Style Transfer via Feature Transforms](https://arxiv.org/abs/1705.08086) from November 17, 2017. 
+Other approaches to arbitrary style transfer are [Exploring the structure of a real-time, arbitrary neural artistic stylization network](https://arxiv.org/abs/1705.06830) from August 24, 2017 and [Universal Style Transfer via Feature Transforms](https://arxiv.org/abs/1705.08086) from November 17, 2017. 
 
 See [a Medium post with an overview of the history of NST](https://medium.com/artists-and-machine-intelligence/neural-artistic-style-transfer-a-comprehensive-look-f54d8649c199).
 
-So, the next step for my program could be the replacement of the current iterative implementation with feed-forward one based on one of the previous papers. What could still be challenging is how to implement it with a second style.
+So, the next step for my application could be the replacement of the current iterative implementation with a feed-forward one based on one of the previous papers. What could still be challenging is how to implement it with a second style.
 
 ### Arbitrary image size and proportions
 
