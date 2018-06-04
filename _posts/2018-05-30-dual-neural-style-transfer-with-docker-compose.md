@@ -201,11 +201,11 @@ Since the traffic between .NET Core and Python components is quite small (about 
 
 ### Usage of server-side rendering and Angular 5 from .NET
 
-I [mentioned above](#angular-5) that I used a nice Angular 5 template for .NET Core. The issue is in the current version of command-line SDK for .NET or Visual Studio this template is missing but there was Angular 4 template instead. 
+I [mentioned above](#angular-5) that I used a nice Angular 5 template for .NET Core. The issue is that in the current (2.0) version of .NET the CLI for .NET or Visual Studio this template is missing but there is the Angular 4 template instead. 
 
-I foolishly tried to update it manually to Angular 5 that initially worked fine. But as soon as I started to build Docker images that included building Angular 5 application in production mode with SSR it broke. It turned out that there were breaking changes in SSR from Angular 4 to Angular 5.
+I foolishly tried to update it manually to Angular 5, that initially worked fine. But as soon as I started to build Docker images, that included building the Angular 5 application in production mode with SSR, it broke. It turned out that there were breaking changes in SSR from Angular 4 to Angular 5.
 
-I was already choosing between giving up SSR or giving up Angular 5 when I luckily found that [Microsoft created a new SPA template](https://github.com/aspnet/JavaScriptServices/issues/1288#issuecomment-346003334) with the support of both Angular 5 and [SSR](https://docs.microsoft.com/en-us/aspnet/core/spa/angular?view=aspnetcore-2.1&tabs=visual-studio#server-side-rendering) (although SSR is *not* turned on by default). The point was that template was still in beta and it had to be installed manually with
+I was already choosing between giving up SSR or giving up Angular 5 when I luckily found that [Microsoft created the new SPA template](https://github.com/aspnet/JavaScriptServices/issues/1288#issuecomment-346003334) with the support of both Angular 5 and [SSR](https://docs.microsoft.com/en-us/aspnet/core/spa/angular?view=aspnetcore-2.1&tabs=visual-studio#server-side-rendering) (although SSR is *not* turned on by default). The point was that template was still in beta and it had to be installed manually with
 
 ```shell
 dotnet new --install Microsoft.DotNet.Web.Spa.ProjectTemplates::2.0.0
