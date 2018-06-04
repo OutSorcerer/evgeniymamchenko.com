@@ -323,9 +323,9 @@ Why it helps? I do not know, but the good thing [they fixed it in 6.0 version](h
 
 ### Long response time
 
-But why HTTP requests where taking so long for server to handle in the first place? Responses were just about 300 kB it was not the Internet speed.
+But why HTTP requests where taking so long for server to handle in the first place? Responses were just about 300 kB, so it was not the Internet speed.
 
-The reason was the TensorFlow thread was using 100% CPU so there were not enough resources for the Flask thread and for the ASP.NET Core process.
+The reason was that the TensorFlow thread was using 100% CPU, so there were not enough resources for the Flask thread and for the ASP.NET Core process.
 
 Another consequence was [weird exceptions from ASP.NET Core application](https://github.com/aspnet/JavaScriptServices/issues/1514):
 
@@ -356,11 +356,11 @@ services:
 
 `cpus` sets [the maximum number of cores](https://docs.docker.com/config/containers/resource_constraints/#configure-the-default-cfs-scheduler) that a service can occupy (in that case there was two-core instance).
 
-`cpu_shares` sets [a weight of a service](https://docs.docker.com/config/containers/resource_constraints/#configure-the-default-cfs-scheduler) that takes effect only during moments when CPU resources are limited.
+`cpu_shares` sets [a weight of a service](https://docs.docker.com/config/containers/resource_constraints/#configure-the-default-cfs-scheduler), which takes effect only during the moments when CPU resources are limited.
 
-I was confused at first by a fact that [those settings were removed in the version 3 of Compose file](https://docs.docker.com/compose/compose-file/compose-versioning/#version-3). The reason is that version 3 is mainly for running stacks of containers in Docker Swarm that has its own way of limiting CPU usage while the version 2 is for good old docker-compose. And [version 2.3 is not so old as it was introduced almost at the same time as 3.4](https://github.com/docker/compose/issues/4513#issuecomment-377311337). 
+I was confused at first by the fact that [those settings were removed in the version 3 of Compose file](https://docs.docker.com/compose/compose-file/compose-versioning/#version-3). The reason is that the version 3 is mainly for running stacks of containers in Docker Swarm, which has its own way of limiting CPU usage, while the version 2 is for good old Docker Compose. And [the version 2.3 is not so old as it was introduced almost at the same time as 3.4](https://github.com/docker/compose/issues/4513#issuecomment-377311337). 
 
-To make it even easier for a server I started to send the resulting image only when it is changes. On a two-core instance it happens once in about 15 seconds and the image size is about 300 kB while for the rest of polling responses that are performed each seconds payload size is just a few hundreds of bytes.
+To make it even easier for a server I started to send the resulting image only when it changes. On a two-core instance it happens once in about 15 seconds, and the image size is about 300 kB, while for the rest of polling responses, that are performed each second, payload size is just a few hundreds of bytes.
 
 ## Possible improvements and further reading
 
