@@ -157,7 +157,7 @@ The program starts with loading weights of the pre-trained VGG network and build
 
 Since initialization and training take significant time, but we want to keep a user up to date by responding to HTTP requests, TensorFlow code works in a separate thread. 
 
-This code is based on an assignment *Art Generation with Neural Style Transfer* from Andrew's Ng [course](https://www.coursera.org/learn/convolutional-neural-networks), which is a part of [Deep Learning specialization](https://www.deeplearning.ai/).
+This code is based on an assignment *Art Generation with Neural Style Transfer* from Andrew's Ng [course](https://www.coursera.org/learn/convolutional-neural-networks), which is a part of [Deep Learning specialization](https://www.coursera.org/specializations/deep-learning).
 
 My changes include the support for a second style image that I described [above](#how-the-original-neural-style-transfer-algorithm-was-extended) and various performance improvements that I am going to describe [below](#leaking-tensorflow-graph-nodes-and-therefore-memory).
 
