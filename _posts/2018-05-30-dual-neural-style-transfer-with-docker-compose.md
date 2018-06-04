@@ -221,14 +221,16 @@ When .NET Core SDK 2.1 is released, that will not be required anymore.
 
 ### Leaking TensorFlow graph nodes (and therefore memory)
 
-The original implementation of NST from Deep Learning specialization course worked nicely when it was launched just once or twice from Jupiter notebook. But as it turned out it was not production-ready at all.
+The original implementation of NST from [the Deep Learning specialization on Coursera](https://www.coursera.org/specializations/deep-learning) worked nicely when it was launched just once or twice from Jupiter notebook. But, as it turned out, it was not production-ready at all.
 
-The first thing that caught my eye was content cost and style cost nodes of the computation graph in TensorFlow were not reused but created for each input image:
+The first thing, that caught my eye, was that content cost and style cost nodes of the computation graph in TensorFlow were not reused but created for each input image:
 
 ```python
-# a_C is an activation of a hidden layer when a network input is set to a content image
-# a_G is the same activation when resulting image is set as a network input
-# J_content is content cost graph node
+# a_C was a NumPy array (not a Tensor) with an activation of a hidden layer
+#    when a network input is set to a content image
+# a_G was also a NumPy array with the same activation 
+#    when a resulting image is set as a network input
+# J_content is the content cost tensor (a graph node in a computation graph)
 J_content = compute_content_cost(a_C, a_G)
 ```
 
@@ -241,17 +243,17 @@ J_content = compute_content_cost(a_C_var, a_G)
 
 The same was done for the style cost, the content cost weight, the style cost weight and the total cost.
 
-That allowed to reuse their graph nodes just by assigning new values to the corresponding variables. That was done intuitively in an attempt to cache what can be cached considering that initialization time at the moment was too long. That ended up to be a step in the right direction but a serious problem still remained.
+That allowed to reuse their graph nodes just by assigning new values to the corresponding variables. That was done intuitively in the attempt to cache what can be cached considering that the initialization time at the moment was too long. That ended up to be a step in the right direction, but a serious problem still remained.
 
 I also realized that a current session must not be created from scratch for each transfer but a single session can be reused.
 
-Everything seemed to be perfect, I deployed the application to a Google Cloud instance and started to test it more intensively. And then I faced out of memory errors. At first, I thought that it is just a peculiarity of Python/TensorFlow memory management and it can be solved just by increasing instance memory but that just postponed the error, not fixed it entirely. I looked at the TensorFlow process memory consumption and saw that it was steadily growing.
+Everything seemed to be perfect, I deployed the application to a Google Cloud instance and started to test it more intensively. And then I faced "out of memory" errors. At first, I thought that it is just a peculiarity of the Python/TensorFlow memory management and it can be solved just by increasing the instance memory but that just postponed the error, not fixed it entirely. I looked at the TensorFlow process memory consumption and saw that it was steadily growing.
 
 Long story short, the reason was [leaking TensorFlow computation graph nodes, specifically assign nodes](https://github.com/tensorflow/tensorflow/issues/4151). 
 
-Assign operation in TensorFlow is not like an assign operation from C++ or Python it is just another graph node. Using them to set variables to new inputs was adding new and new nodes to a graph that was causing out of memory errors.
+Assign operation in TensorFlow is not like an assign operation from C++ or Python it is just another graph node. Using them to set variables to new inputs was adding new and new nodes to a graph that was causing "out of memory" errors.
 
-More accurately assign itself is not consuming memory, but [it implicitly creates a constant node with an assigning value](https://github.com/tensorflow/tensorflow/issues/2311). 
+More accurately, the assign operation itself is not consuming memory, but [it implicitly creates a constant node with an assigning value](https://github.com/tensorflow/tensorflow/issues/2311). 
 
 By the way, there is a nice way to validate if you program is free of such kind of bugs, by adding `tf.get_default_graph().finalize()` immediately before the training loop. It is not done automatically just because [it would break a huge amount of existing code](https://github.com/tensorflow/tensorflow/issues/2311#issuecomment-219524374). But maybe it would be a good thing...
 
@@ -265,7 +267,7 @@ there must be:
 
 ```python
 input_placeholder = tf.placeholder(dtype='float32', shape=(1, CONFIG.IMAGE_HEIGHT, CONFIG.IMAGE_WIDTH, CONFIG.COLOR_CHANNELS)) 
-    graph['input']   = tf.Variable(input_placeholder, dtype = 'float32')
+graph['input'] = tf.Variable(input_placeholder, dtype = 'float32')
 ```
 
 during initialization, and then for each request:
@@ -280,12 +282,15 @@ You must also remove:
 session.run(tf.global_variables_initializer())
 ```
 
-Because that would also try to initialize variables like `input_variable` without defining the corresponding placeholder values. Each variable must be initialized manually instead.
+Because that would also try to initialize variables like `input_variable` without defining the corresponding placeholder values which would cause a error. Each variable must be initialized manually instead.
 
 You will most likely also have to initialize the variables implicitly created by the optimizer. It can be done like:
 
 ```python
-session.run(tf.variables_initializer(optimizer.variables()))
+# The following line must be executed only once before the computation graph is finalized.
+optimizer_variables_initializer = tf.variables_initializer(optimizer.variables())
+# The following line should be executed for each transfer.
+session.run(optimizer_variables_initializer)
 ```
 
 That fix also sped up the application significantly. A second run with a GPU started to initialize just in few seconds instead of half a minute.
