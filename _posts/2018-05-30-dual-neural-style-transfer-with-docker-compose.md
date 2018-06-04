@@ -407,7 +407,7 @@ An alternative solution is the usage of [distributed TensorFlow on a cluster](ht
 
 ### TensorFlow Serving
 
-[TensorFlow Serving](https://www.tensorflow.org/serving/serving_basic) does not seem to be applicable currently as it serves a trained model, but here is a training process. However, with a feed-forward approach, it could replace the Flask part.
+[TensorFlow Serving](https://www.tensorflow.org/serving/serving_basic) does not seem to be applicable currently, as it serves an already trained model, but here is a training process. However, with a feed-forward approach, it could replace the Flask part.
 
 Moreover, [it can also serve multiple models on a single GPU simultaneously](https://github.com/tensorflow/serving/issues/335#issuecomment-305886225).
 
