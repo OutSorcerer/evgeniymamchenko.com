@@ -391,9 +391,9 @@ In a [recent post on fast.ai](http://www.fast.ai/2018/04/30/dawnbench-fastai/) t
 
 The bottleneck of the application is an optimization process in TensorFlow. Although multiple transfers are queued, the slow speed of a transfer on CPU makes it impractical on multi-user scenarios.
 
-With GPU the performance is much better, but still, currently, only a single user at a time can have his transfer running while others will wait in a queue. Running two TensorFlow sessions simultaneously [is not stable, most likely due to GPU memory allocation](https://github.com/tensorflow/tensorflow/issues/4196).
+With GPU the performance is much better, but still, currently, only a single user at a time can have his transfer running, while others will wait in a queue. Running two TensorFlow sessions simultaneously [is not stable, most likely due to GPU memory allocation](https://github.com/tensorflow/tensorflow/issues/4196).
 
-On my 2GB GPU an attempt to run two TensorFlow sessions from two Python process results in the following error:
+On my 2GB GPU an attempt to run two TensorFlow sessions from two Python processes results in the following error:
 
 ```
 2018-06-03 00:15:43.736350: E T:\src\github\tensorflow\tensorflow\stream_executor\cuda\cuda_dnn.cc:455] could not create cudnn handle: CUDNN_STATUS_ALLOC_FAILED
@@ -401,7 +401,7 @@ On my 2GB GPU an attempt to run two TensorFlow sessions from two Python process 
 2018-06-03 00:15:43.747966: F T:\src\github\tensorflow\tensorflow\core\kernels\conv_ops.cc:713] Check failed: stream->parent()->GetConvolveAlgorithms( conv_parameters.ShouldIncludeWinogradNonfusedAlgo<T>(), &algorithms)
 ```
 
-That could be solved by using multiple machines with multiple replicas of Python Docker container. That would also require Docker Swarm, Kubernetes or another orchestrator that runs against a cluster instead of docker-compose that runs against a single machine.
+That could be solved by using multiple machines with multiple replicas of the Python Docker container. That would also require Docker Swarm, Kubernetes or another orchestrator that runs against a cluster instead of Docker Compose, which runs against a single machine.
 
 An alternative solution is the usage of [distributed TensorFlow on a cluster](https://www.tensorflow.org/deploy/distributed).
 
