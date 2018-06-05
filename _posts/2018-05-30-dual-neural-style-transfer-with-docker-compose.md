@@ -130,9 +130,9 @@ def convert_input_to(class_):
     return wrap
 
 @convert_input_to(BackendJobModel)
-    def put(self, job):
-        # ...
-        current_job = job
+def put(self, job):
+    # ...
+    current_job = job
 ```
 
 Looks nice, but what if a decorated function had more arguments? I could rewrite the code, of course, but the point is there should be a built-in and generic solution out-of-the-box on the contrary to making users copy-paste code that performs very basic tasks. 
