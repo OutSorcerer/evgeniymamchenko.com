@@ -187,7 +187,7 @@ I hope I live to see the day when NVidia finally makes a proper installer or may
 
 Docker could help here a lot, but unfortunately using GPU from Docker [is not possible on Windows right now](https://github.com/NVIDIA/nvidia-docker/issues/197). Although I could imagine it working in a bright future as the answer why it is not possible looks promising: "No not possible, we would need GPU passthrough (i.e DDA) which is only available in Windows server 2016." If it works on Windows Server it could come to other editions of Windows as well.
 
-### Communication between .NET Core and Python
+### The communication between .NET Core and Python
 
 My first approach to this was launching a Python process from .NET Core by [System.Diagnostics.Process.Start](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.process.start). At first, it looked as a nice and simple while cross-platform way, but it had a number of disadvantages. 
 
@@ -199,7 +199,7 @@ The solution was to the make Python process long-running and communicate with it
 
 Since the traffic between .NET Core and Python components is quite small (about 300 kB per second) HTTP/JSON is fine for this use-case. In case that would become a bottleneck something like [WebSocket](https://en.wikipedia.org/wiki/WebSocket) and a binary serialization protocol like [Protocol Buffers](https://en.wikipedia.org/wiki/Protocol_Buffers) could be used. Another alternative is Google's [gRPC](https://github.com/grpc/grpc).
 
-### Usage of server-side rendering and Angular 5 from .NET
+### The usage of the server-side rendering and Angular 5 from .NET
 
 I [mentioned above](#angular-5) that I used a nice Angular 5 template for .NET Core. The issue is that in the current (2.0) version of .NET the CLI for .NET or Visual Studio this template is missing but there is the Angular 4 template instead. 
 
@@ -321,7 +321,7 @@ import 'rxjs/add/operator/switchMap';
 
 Why it helps? I do not know, but the good thing [they fixed it in 6.0 version](https://github.com/ReactiveX/rxjs/issues/3306#issuecomment-374346659). Thanks to [Airblader](https://github.com/Airblader) who created a [GitHub issue](https://github.com/ReactiveX/rxjs/issues/3306) where I found this.
 
-### Long response time
+### Long response times
 
 But why HTTP requests where taking so long for server to handle in the first place? Responses were just about 300 kB, so it was not the Internet speed.
 
@@ -364,7 +364,7 @@ To make it even easier for a server I started to send the resulting image only w
 
 ## Possible improvements and further reading
 
-### Feed-forward Style Transfer
+### Feed-forward Neural Style Transfer
 
 The Deep Learning field is developing incredibly fast, and the original Neural Style Transfer paper called [A Neural Algorithm of Artistic Style
 ](https://arxiv.org/abs/1508.06576) from September 2, 2015 already became obsolete in terms of the implementation details of the style transfer idea (while the idea itself is still actual, moreover, [it had a huge impact even outside of the scientific community](https://play.google.com/store/apps/details?id=com.neuralprisma)).
@@ -381,7 +381,7 @@ See [a Medium post with an overview of the history of NST](https://medium.com/ar
 
 So, the next step for my application could be the replacement of the current iterative implementation with a feed-forward one based on one of the previous papers. What could still be challenging is how to implement it with a second style.
 
-### Arbitrary image size and proportions
+### An arbitrary image size and proportions
 
 The current implementation like the underlying VGG network can only process images of the fixed size (400x300), so if a chosen image size is different, it is resized by .NET Core application, before it is assigned as an input of a neural network.
 
