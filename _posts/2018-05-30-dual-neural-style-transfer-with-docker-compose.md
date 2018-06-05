@@ -367,7 +367,7 @@ To make it even easier for a server I started to send the resulting image only w
 ### Feed-forward Style Transfer
 
 The Deep Learning field is developing incredibly fast, and the original Neural Style Transfer paper called [A Neural Algorithm of Artistic Style
-](https://arxiv.org/abs/1508.06576) from September 2, 2015 already became obsolete in terms of the implementation details of the style transfer idea (at the same time the idea itself had a huge impact even outside of the scientific community). 
+](https://arxiv.org/abs/1508.06576) from September 2, 2015 already became obsolete in terms of the implementation details of the style transfer idea (while the idea itself is still actual, moreover, [it had a huge impact even outside of the scientific community](https://play.google.com/store/apps/details?id=com.neuralprisma)).
 
 One major breakthrough was a following paper that introduced a fast feed-forward method of Neural Style Transfer, [Texture Networks: Feed-forward Synthesis of Textures and Stylized Images](https://arxiv.org/abs/1603.03417) from March 10, 2016. That method involves just a single forward propagation through a neural network instead of an iterative process and thus it is few orders of magnitude faster. The trade-off is that a network must be trained in advance for each style image and that process is even slower than the original style transfer iterative process. You can [try that algorithm online](https://demos.algorithmia.com/deep-style/).
 
