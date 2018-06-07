@@ -84,7 +84,7 @@ Feel free to play with it yourself, I would appreciate if you would share your r
 
 Let us talk in more detail about the building blocks of the application.
 
-### Angular 5
+### Angular
 
 [Angular 5](https://angular.io/) component is the face of the application. It is responsible for validating a user input and sending it to the server.
 
@@ -95,7 +95,7 @@ const polling = Observable.timer(0, 1000)
     .switchMap(() => this.http.get<any>(this.baseUrl + `api/neural-style-transfer/jobs/${jobId}`));
 ```
 
-Angular 5 is my framework of choice because of my love to statically typed languages like C# or TypeScript and also because of [the nice SPA template](#usage-of-server-side-rendering-and-angular-5-from-net) included with .NET Core CLI. That template is even capable of the [server-side rendering](https://angular.io/guide/universal) which is a nice tool for SEO and the user experience as it significantly decreases the initial page load time.
+Angular 5 is my framework of choice because of my love to statically typed languages like C# or TypeScript and also because of [the nice SPA template](#the-usage-of-the-server-side-rendering-and-angular-from-net) included with .NET Core CLI. That template is even capable of the [server-side rendering](https://angular.io/guide/universal) which is a nice tool for SEO and the user experience as it significantly decreases the initial page load time.
 
 The template (and this application) uses [Bootstrap](https://getbootstrap.com/) library which looks a bit old-fashioned in 2018, I hope the next template from Microsoft will use [Angular Material](https://material.angular.io/) which is more modern-looking.
 
@@ -199,9 +199,9 @@ The solution was to the make Python process long-running and communicate with it
 
 Since the traffic between .NET Core and Python components is quite small (about 300 kB per second) HTTP/JSON is fine for this use-case. In case that would become a bottleneck something like [WebSocket](https://en.wikipedia.org/wiki/WebSocket) and a binary serialization protocol like [Protocol Buffers](https://en.wikipedia.org/wiki/Protocol_Buffers) could be used. Another alternative is Google's [gRPC](https://github.com/grpc/grpc).
 
-### The usage of the server-side rendering and Angular 5 from .NET
+### The usage of the server-side rendering and Angular from .NET
 
-I [mentioned above](#angular-5) that I used a nice Angular 5 template for .NET Core. The issue is that in the current (2.0) version of .NET the CLI for .NET or Visual Studio this template is missing but there is the Angular 4 template instead. 
+I [mentioned above](#angular) that I used a nice Angular 5 template for .NET Core. The issue is that in the current (2.0) version of .NET the CLI for .NET or Visual Studio this template is missing but there is the Angular 4 template instead. 
 
 I foolishly tried to update it manually to Angular 5, that initially worked fine. But as soon as I started to build Docker images, that included building the Angular 5 application in production mode with SSR, it broke. It turned out that there were breaking changes in SSR from Angular 4 to Angular 5.
 
