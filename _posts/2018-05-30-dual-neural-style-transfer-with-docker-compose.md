@@ -7,7 +7,7 @@ title: Dual Neural Style Transfer with Docker Compose
 
 <p style="text-align: right; font-style: italic">Programming is easy like riding a bike. Except the bike is on fire and you're on fire and everything is on fire and you're actually in hell.</p>
 
-<a href="https://twitter.com/matixmatix/status/537607604743438337?lang=en"><p style="text-align: right; font-style: italic">Matic Jurglič</p></a>
+<p style="text-align: right; font-style: italic"><a href="https://twitter.com/matixmatix/status/537607604743438337?lang=en">Matic Jurglič</a></p>
 
 <img id="coding-horror-on-fire" src="../images/coding-horror-on-fire.png">
 
