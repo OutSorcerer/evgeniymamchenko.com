@@ -253,7 +253,7 @@ Everything seemed to be perfect, I deployed the application to a Google Cloud in
 
 Long story short, the reason was [leaking TensorFlow computation graph nodes, specifically assign nodes](https://github.com/tensorflow/tensorflow/issues/4151). 
 
-Assign operation in TensorFlow is not like an assign operation from C++ or Python, it is just another graph node. Using them to set variables to new inputs was adding new and new nodes to a graph that was causing "out of memory" errors.
+Unlike an assign operation from C++ or Python, an assign operation in TensorFlow is just another graph node. Using these operations to set variables to new inputs was adding new and new nodes to a graph, which was causing "out of memory" errors.
 
 More accurately, the assign operation itself is not consuming memory, but [it implicitly creates a constant node with an assigning value](https://github.com/tensorflow/tensorflow/issues/2311). 
 
