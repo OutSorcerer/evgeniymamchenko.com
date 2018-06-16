@@ -9,6 +9,8 @@ title: Data transformation pipeline in Kaggle competitions with doit build-tool
 
 *The picture above is (almost) unrelated and belongs to [comSysto’s Labs](https://comsysto.wordpress.com/2013/12/20/taking-part-in-a-kaggle-competition-our-experience/).*
 
+>The full sample code is available at <https://github.com/OutSorcerer/kaggle-data-transformation-pipeline>.
+
 ## What is this about?
 
 It is a structured and extensible implementation of a typical data transformation workflow made with [doit build-tool](http://pydoit.org/) illustrated with [Statoil/C-CORE Iceberg Classifier Challenge on Kaggle](https://www.kaggle.com/c/statoil-iceberg-classifier-challenge).
@@ -67,10 +69,6 @@ def task_convert_train_to_numpy():
 ```
 
 By combining target and dependency files doit tool is able to determine which task depends on which and which task target is up-to-date. This is a default workflow that could be easily extended by implementing a custom Python function to check if task is outdated or not.
-
-## Full code example
-
-See https://github.com/OutSorcerer/kaggle-data-transformation-pipeline.
 
 ## Dependencies
 
