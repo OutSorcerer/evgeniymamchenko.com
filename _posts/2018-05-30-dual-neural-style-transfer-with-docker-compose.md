@@ -48,13 +48,13 @@ title: Dual Neural Style Transfer with Docker Compose
 
 * Click "Stop" button to abort the transfer.
 
-## What is Neural Style Transfer?
+## What is neural style transfer?
 
 Intuitively it can be defined as generating a picture which content is similar to one input image and which style is similar to another input image.
 
 In a more detailed way, it is a result of iterative optimization of a specific cost function defined on a resulting image. On each step of the optimization, we compute the gradient of that cost function with respect to each pixel of resulting image and slightly change the resulting image in the direction opposite to the gradient as we always do in the [Gradient descent algorithm](https://en.wikipedia.org/wiki/Gradient_descent).
 
-The interesting fact here is that, typically, when training convolutional neural networks, images are fixed and weights of the network are the subject of optimization. On the contrary, in NST algorithm the weights of CNN are fixed, while the input image is being optimized. In [the original paper](https://arxiv.org/abs/1508.06576) the CNN with [VGG architecture](https://www.quora.com/What-is-the-VGG-neural-network) pre-trained on [ImageNet dataset](https://en.wikipedia.org/wiki/ImageNet). This application also loads weights of pre-trained VGG model. What is interesting is [there could be something special in VGG architecture that makes it especially good for Neural Style Transfer](https://www.reddit.com/r/MachineLearning/comments/7rrrk3/d_eat_your_vggtables_or_why_does_neural_style/) although some people achieved good results with other architectures too.
+The interesting fact here is that, typically, when training convolutional neural networks, images are fixed and weights of the network are the subject of optimization. On the contrary, in NST algorithm the weights of CNN are fixed, while the input image is being optimized. In [the original paper](https://arxiv.org/abs/1508.06576) the CNN with [VGG architecture](https://www.quora.com/What-is-the-VGG-neural-network) pre-trained on [ImageNet dataset](https://en.wikipedia.org/wiki/ImageNet). This application also loads weights of pre-trained VGG model. What is interesting is [there could be something special in VGG architecture that makes it especially good for neural style transfer](https://www.reddit.com/r/MachineLearning/comments/7rrrk3/d_eat_your_vggtables_or_why_does_neural_style/) although some people achieved good results with other architectures too.
 
 The mentioned cost function is the sum of two terms.
 
@@ -68,9 +68,9 @@ For a single layer, the style cost is the squared Euclidean distance between [Gr
 
 Gram matrix is approximately proportional to the covariance matrix (in case values are centered). Its diagonal elements are just squared L2 norms of the corresponding channel activations reshaped as one-dimensional vectors.
 
-For a detailed explanation of Neural Style Transfer you can [see the original paper](https://arxiv.org/abs/1508.06576), read [my source code](https://gitlab.com/OutSorcerer/NeuralStyleTransferWeb) or [watch the video and complete the corresponding programming assignment](https://www.coursera.org/learn/convolutional-neural-networks/home/week/4) from the Coursera CNN course, on which my code is based (all the videos are available for free [on YouTube](https://www.youtube.com/watch?v=Re2C9INXCNc&index=38&list=PLBAGcD3siRDjBU8sKRk0zX9pMz9qeVxud) but Coursera subscription is required to complete the programming assignment).
+For a detailed explanation of neural style transfer you can [see the original paper](https://arxiv.org/abs/1508.06576), read [my source code](https://gitlab.com/OutSorcerer/NeuralStyleTransferWeb) or [watch the video and complete the corresponding programming assignment](https://www.coursera.org/learn/convolutional-neural-networks/home/week/4) from the Coursera CNN course, on which my code is based (all the videos are available for free [on YouTube](https://www.youtube.com/watch?v=Re2C9INXCNc&index=38&list=PLBAGcD3siRDjBU8sKRk0zX9pMz9qeVxud) but Coursera subscription is required to complete the programming assignment).
 
-## How I extended the original Neural Style Transfer algorithm 
+## How I extended the original neural style transfer algorithm 
 
 To make the application more interesting, I decided to extend the original algorithm. What if we try to apply two styles simultaneously? Surprisingly, it worked quite well: styles are not overlapping but rather being applied to different parts of the image, depending on which part is more suitable for each style. Let us call it "dual NST".
 
@@ -366,12 +366,12 @@ To make it even easier for the server I started to send the resulting image only
 
 ## Possible improvements and further reading
 
-### Feed-forward Neural Style Transfer
+### Feed-forward neural style transfer
 
-The Deep Learning field is developing incredibly fast, and the original Neural Style Transfer paper called [A Neural Algorithm of Artistic Style
+The Deep Learning field is developing incredibly fast, and the original neural style transfer paper called [A Neural Algorithm of Artistic Style
 ](https://arxiv.org/abs/1508.06576) from September 2, 2015 already became obsolete in terms of the implementation details of the style transfer idea (while the idea itself is still actual, moreover, [it had a huge impact even outside of the scientific community](https://play.google.com/store/apps/details?id=com.neuralprisma)).
 
-One major breakthrough was the following paper that introduced a fast feed-forward method of Neural Style Transfer, [Texture Networks: Feed-forward Synthesis of Textures and Stylized Images](https://arxiv.org/abs/1603.03417) from March 10, 2016. That method involves just a single forward propagation through a neural network instead of an iterative process and thus it is few orders of magnitude faster. The trade-off is that a network must be trained in advance for each style image and that process is even slower than the original style transfer iterative process. You can [try that algorithm online](https://demos.algorithmia.com/deep-style/).
+One major breakthrough was the following paper that introduced a fast feed-forward method of neural style transfer, [Texture Networks: Feed-forward Synthesis of Textures and Stylized Images](https://arxiv.org/abs/1603.03417) from March 10, 2016. That method involves just a single forward propagation through a neural network instead of an iterative process and thus it is few orders of magnitude faster. The trade-off is that a network must be trained in advance for each style image and that process is even slower than the original style transfer iterative process. You can [try that algorithm online](https://demos.algorithmia.com/deep-style/).
 
 Another paper that proposed a feed-forward method was [Perceptual Losses for Real-Time Style Transfer and Super-Resolution](https://arxiv.org/abs/1603.08155) from March 27, 2016. It looks like it is cited more often, but it appeared a bit later.
 
@@ -387,7 +387,7 @@ So, the next step for my application could be the replacement of the current ite
 
 The current implementation like the underlying VGG network can only process images of the fixed size (400x300), so if a chosen image size is different, it is resized by .NET Core application, before it is assigned as an input of a neural network.
 
-In a [recent post on fast.ai](http://www.fast.ai/2018/04/30/dawnbench-fastai/) Jeremy Howard mentioned adaptive pooling layers, which could help to process an image of an arbitrary size (as far as I understand it is based on [Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition](https://arxiv.org/abs/1406.4729)). That would be useful for Neural Style Transfer too.
+In a [recent post on fast.ai](http://www.fast.ai/2018/04/30/dawnbench-fastai/) Jeremy Howard mentioned adaptive pooling layers, which could help to process an image of an arbitrary size (as far as I understand it is based on [Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition](https://arxiv.org/abs/1406.4729)). That would be useful for neural style transfer too.
 
 ### Processing multiple user requests simultaneously
 
